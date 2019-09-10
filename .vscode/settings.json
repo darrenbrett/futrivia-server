@@ -1,0 +1,17 @@
+{
+  "jshint.enable": true,
+  "jshint.options": {
+    "esversion": 6,
+    "moz": true,
+    "supernew": true
+  },
+  "git.ignoreLimitWarning": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 300,
+  "javascript.suggestionActions.enabled": false,
+  "workbench.colorCustomizations": {
+    "tab.unfocusedActiveBorder": "#fff0"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "jshint.enable": true,
   "jshint.options": {
-    "esversion": 6,
+    "esversion": 9,
     "moz": true,
     "supernew": true
   },

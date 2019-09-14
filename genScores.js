@@ -24,12 +24,12 @@ let scorelessDraws = 0;
 let homeTeamWins = 0;
 let awayTeamWins = 0;
 
-function genScore(homeTeam, awayTeam) {
+function genScore(awayTeam, homeTeam) {
   // loop through and get homeTeam and awayTeam ratings
   for (let teamStrength of teamStrengths) {
     if (teamStrength.name === homeTeam) {
       homeTeamRating = teamStrength.rating;
-      // console.log('home strength: ', homeTeam, homeTeamRating);
+      // console.log("home strength: ", homeTeam, homeTeamRating);
     }
     if (teamStrength.name === awayTeam) {
       awayTeamRating = teamStrength.rating;
@@ -54,8 +54,10 @@ function genScore(homeTeam, awayTeam) {
   let awayResultModByStrength = (awayTeamInitResult * awayTeamRating * 0.7) / 10;
 
   // Calculate scores moderated by strength
-  let homeModScore = homeTeamInitResult + homeResultModByStrength;
   let awayModScore = awayTeamInitResult + awayResultModByStrength;
+  // console.log("awayModScore: ", awayModScore);
+  let homeModScore = homeTeamInitResult + homeResultModByStrength;
+  // console.log("homeModScore: ", homeModScore);
 
   // Round scores to nearest integer
   let finalHomeScore = Math.round(homeModScore);
@@ -80,6 +82,10 @@ function genScore(homeTeam, awayTeam) {
   } else if (awayXFactor == 7) {
     finalAwayScore = 0;
   }
+
+  // console.log("Aventura: ", finalHomeScore);
+  // console.log("Hawthorne: ", finalAwayScore);
+  // console.log("---------------------------");
 
   if (finalHomeScore === 0 && finalAwayScore === 0) {
     scorelessDraws++;
@@ -118,7 +124,7 @@ getTotalsStrongHomeWeakAway = () => {
 };
 
 getTotalsEquallyMatched = () => {
-  let iterations = 100000;
+  let iterations = 1000;
   for (let i = 0; i < iterations; i++) {
     genScore("Janders", "Aventura");
   }
@@ -136,5 +142,7 @@ getTotalsEquallyMatched = () => {
   console.log();
 };
 
-getTotalsStrongHomeWeakAway();
-// getTotalsEquallyMatched();
+// getTotalsStrongHomeWeakAway();
+getTotalsEquallyMatched();
+
+// genScore("Hawthorne", "Andessa");

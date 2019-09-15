@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const easternConfTeams = require('./data/easternConfTeams');
 const westernConfTeams = require('./data/westernConfTeams');
 

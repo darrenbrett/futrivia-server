@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const easternConfTeams = require('./data/easternConfTeams');
 const westernConfTeams = require('./data/westernConfTeams');
 
@@ -36,5 +34,7 @@ let schedule = teamPool.reduce((a, v, i) => {
 
 for (let team of teamPool) {
   let b = schedule.filter(e => e.includes(team));
-  console.log(`The ${team} have ${b.length} games`);
+  // console.log(`The ${team} have ${b.length} games`);
 }
+
+module.exports = schedule;

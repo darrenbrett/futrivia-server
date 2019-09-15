@@ -1,4 +1,4 @@
-["Creighton Fieldhawks : Larson Summiteers",
+const creightonGames = ["Creighton Fieldhawks : Larson Summiteers",
   "Creighton Fieldhawks : Larson Summiteers",
   "Creighton Fieldhawks : Larson Summiteers",
   "Creighton Fieldhawks : Larson Summiteers",
@@ -30,4 +30,6 @@
   "Creighton Fieldhawks : Andessa Vanguard",
   "Creighton Fieldhawks : Sanviago Power",
   "Creighton Fieldhawks : Sanviago Power"
-]
+];
+
+module.exports = creightonGames;

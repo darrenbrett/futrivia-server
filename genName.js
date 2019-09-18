@@ -22,9 +22,9 @@ genFullName = () => {
   return fullName;
 };
 
-gen100FullNames = () => {
+genFullNames = (num) => {
   let names = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < num; i++) {
     let fullName = genFullName();
     names.push(fullName);
   }
@@ -33,9 +33,9 @@ gen100FullNames = () => {
 };
 
 // genFullName();
-gen100FullNames();
+genFullNames(5);
 
 module.exports = {
   genFullName,
-  gen100FullNames,
+  genFullNames,
 };

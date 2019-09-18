@@ -1,0 +1,258 @@
+[
+  [
+    ['Creighton Fieldhawks', 'Sanviago Power'],
+    ['Larson Summiteers', 'Andessa Vanguard'],
+    ['Janders Brigade', 'Solstan Solars'],
+    ['Hawthorne Harriers', 'Rosdan Redtails'],
+    ['Pieska Pikes', 'Aventura Diablos'],
+    ['Argonia Specters', 'Westingdon Kodiacs']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Andessa Vanguard'],
+    ['Sanviago Power', 'Solstan Solars'],
+    ['Larson Summiteers', 'Rosdan Redtails'],
+    ['Janders Brigade', 'Aventura Diablos'],
+    ['Hawthorne Harriers', 'Westingdon Kodiacs'],
+    ['Pieska Pikes', 'Argonia Specters']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Solstan Solars'],
+    ['Andessa Vanguard', 'Rosdan Redtails'],
+    ['Sanviago Power', 'Aventura Diablos'],
+    ['Larson Summiteers', 'Westingdon Kodiacs'],
+    ['Janders Brigade', 'Argonia Specters'],
+    ['Hawthorne Harriers', 'Pieska Pikes']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Rosdan Redtails'],
+    ['Solstan Solars', 'Aventura Diablos'],
+    ['Andessa Vanguard', 'Westingdon Kodiacs'],
+    ['Sanviago Power', 'Argonia Specters'],
+    ['Larson Summiteers', 'Pieska Pikes'],
+    ['Janders Brigade', 'Hawthorne Harriers']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Aventura Diablos'],
+    ['Rosdan Redtails', 'Westingdon Kodiacs'],
+    ['Solstan Solars', 'Argonia Specters'],
+    ['Andessa Vanguard', 'Pieska Pikes'],
+    ['Sanviago Power', 'Hawthorne Harriers'],
+    ['Larson Summiteers', 'Janders Brigade']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Westingdon Kodiacs'],
+    ['Aventura Diablos', 'Argonia Specters'],
+    ['Rosdan Redtails', 'Pieska Pikes'],
+    ['Solstan Solars', 'Hawthorne Harriers'],
+    ['Andessa Vanguard', 'Janders Brigade'],
+    ['Sanviago Power', 'Larson Summiteers']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Argonia Specters'],
+    ['Westingdon Kodiacs', 'Pieska Pikes'],
+    ['Aventura Diablos', 'Hawthorne Harriers'],
+    ['Rosdan Redtails', 'Janders Brigade'],
+    ['Solstan Solars', 'Larson Summiteers'],
+    ['Andessa Vanguard', 'Sanviago Power']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Pieska Pikes'],
+    ['Argonia Specters', 'Hawthorne Harriers'],
+    ['Westingdon Kodiacs', 'Janders Brigade'],
+    ['Aventura Diablos', 'Larson Summiteers'],
+    ['Rosdan Redtails', 'Sanviago Power'],
+    ['Solstan Solars', 'Andessa Vanguard']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Hawthorne Harriers'],
+    ['Pieska Pikes', 'Janders Brigade'],
+    ['Argonia Specters', 'Larson Summiteers'],
+    ['Westingdon Kodiacs', 'Sanviago Power'],
+    ['Aventura Diablos', 'Andessa Vanguard'],
+    ['Rosdan Redtails', 'Solstan Solars']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Janders Brigade'],
+    ['Hawthorne Harriers', 'Larson Summiteers'],
+    ['Pieska Pikes', 'Sanviago Power'],
+    ['Argonia Specters', 'Andessa Vanguard'],
+    ['Westingdon Kodiacs', 'Solstan Solars'],
+    ['Aventura Diablos', 'Rosdan Redtails']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Larson Summiteers'],
+    ['Janders Brigade', 'Sanviago Power'],
+    ['Hawthorne Harriers', 'Andessa Vanguard'],
+    ['Pieska Pikes', 'Solstan Solars'],
+    ['Argonia Specters', 'Rosdan Redtails'],
+    ['Westingdon Kodiacs', 'Aventura Diablos']
+  ],
+  [
+    ['Sanviago Power', 'Creighton Fieldhawks'],
+    ['Andessa Vanguard', 'Larson Summiteers'],
+    ['Solstan Solars', 'Janders Brigade'],
+    ['Rosdan Redtails', 'Hawthorne Harriers'],
+    ['Aventura Diablos', 'Pieska Pikes'],
+    ['Westingdon Kodiacs', 'Argonia Specters']
+  ],
+  [
+    ['Andessa Vanguard', 'Creighton Fieldhawks'],
+    ['Solstan Solars', 'Sanviago Power'],
+    ['Rosdan Redtails', 'Larson Summiteers'],
+    ['Aventura Diablos', 'Janders Brigade'],
+    ['Westingdon Kodiacs', 'Hawthorne Harriers'],
+    ['Argonia Specters', 'Pieska Pikes']
+  ],
+  [
+    ['Solstan Solars', 'Creighton Fieldhawks'],
+    ['Rosdan Redtails', 'Andessa Vanguard'],
+    ['Aventura Diablos', 'Sanviago Power'],
+    ['Westingdon Kodiacs', 'Larson Summiteers'],
+    ['Argonia Specters', 'Janders Brigade'],
+    ['Pieska Pikes', 'Hawthorne Harriers']
+  ],
+  [
+    ['Rosdan Redtails', 'Creighton Fieldhawks'],
+    ['Aventura Diablos', 'Solstan Solars'],
+    ['Westingdon Kodiacs', 'Andessa Vanguard'],
+    ['Argonia Specters', 'Sanviago Power'],
+    ['Pieska Pikes', 'Larson Summiteers'],
+    ['Hawthorne Harriers', 'Janders Brigade']
+  ],
+  [
+    ['Aventura Diablos', 'Creighton Fieldhawks'],
+    ['Westingdon Kodiacs', 'Rosdan Redtails'],
+    ['Argonia Specters', 'Solstan Solars'],
+    ['Pieska Pikes', 'Andessa Vanguard'],
+    ['Hawthorne Harriers', 'Sanviago Power'],
+    ['Janders Brigade', 'Larson Summiteers']
+  ],
+  [
+    ['Westingdon Kodiacs', 'Creighton Fieldhawks'],
+    ['Argonia Specters', 'Aventura Diablos'],
+    ['Pieska Pikes', 'Rosdan Redtails'],
+    ['Hawthorne Harriers', 'Solstan Solars'],
+    ['Janders Brigade', 'Andessa Vanguard'],
+    ['Larson Summiteers', 'Sanviago Power']
+  ],
+  [
+    ['Argonia Specters', 'Creighton Fieldhawks'],
+    ['Pieska Pikes', 'Westingdon Kodiacs'],
+    ['Hawthorne Harriers', 'Aventura Diablos'],
+    ['Janders Brigade', 'Rosdan Redtails'],
+    ['Larson Summiteers', 'Solstan Solars'],
+    ['Sanviago Power', 'Andessa Vanguard']
+  ],
+  [
+    ['Pieska Pikes', 'Creighton Fieldhawks'],
+    ['Hawthorne Harriers', 'Argonia Specters'],
+    ['Janders Brigade', 'Westingdon Kodiacs'],
+    ['Larson Summiteers', 'Aventura Diablos'],
+    ['Sanviago Power', 'Rosdan Redtails'],
+    ['Andessa Vanguard', 'Solstan Solars']
+  ],
+  [
+    ['Hawthorne Harriers', 'Creighton Fieldhawks'],
+    ['Janders Brigade', 'Pieska Pikes'],
+    ['Larson Summiteers', 'Argonia Specters'],
+    ['Sanviago Power', 'Westingdon Kodiacs'],
+    ['Andessa Vanguard', 'Aventura Diablos'],
+    ['Solstan Solars', 'Rosdan Redtails']
+  ],
+  [
+    ['Janders Brigade', 'Creighton Fieldhawks'],
+    ['Larson Summiteers', 'Hawthorne Harriers'],
+    ['Sanviago Power', 'Pieska Pikes'],
+    ['Andessa Vanguard', 'Argonia Specters'],
+    ['Solstan Solars', 'Westingdon Kodiacs'],
+    ['Rosdan Redtails', 'Aventura Diablos']
+  ],
+  [
+    ['Larson Summiteers', 'Creighton Fieldhawks'],
+    ['Sanviago Power', 'Janders Brigade'],
+    ['Andessa Vanguard', 'Hawthorne Harriers'],
+    ['Solstan Solars', 'Pieska Pikes'],
+    ['Rosdan Redtails', 'Argonia Specters'],
+    ['Aventura Diablos', 'Westingdon Kodiacs']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Argonia Specters'],
+    ['Larson Summiteers', 'Pieska Pikes'],
+    ['Janders Brigade', 'Hawthorne Harriers'],
+    ['Westingdon Kodiacs', 'Sanviago Power'],
+    ['Aventura Diablos', 'Andessa Vanguard'],
+    ['Rosdan Redtails', 'Solstan Solars']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Pieska Pikes'],
+    ['Argonia Specters', 'Hawthorne Harriers'],
+    ['Larson Summiteers', 'Janders Brigade'],
+    ['Westingdon Kodiacs', 'Andessa Vanguard'],
+    ['Sanviago Power', 'Solstan Solars'],
+    ['Aventura Diablos', 'Rosdan Redtails']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Hawthorne Harriers'],
+    ['Pieska Pikes', 'Janders Brigade'],
+    ['Argonia Specters', 'Larson Summiteers'],
+    ['Westingdon Kodiacs', 'Solstan Solars'],
+    ['Andessa Vanguard', 'Rosdan Redtails'],
+    ['Sanviago Power', 'Aventura Diablos']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Janders Brigade'],
+    ['Hawthorne Harriers', 'Larson Summiteers'],
+    ['Pieska Pikes', 'Argonia Specters'],
+    ['Westingdon Kodiacs', 'Rosdan Redtails'],
+    ['Solstan Solars', 'Aventura Diablos'],
+    ['Andessa Vanguard', 'Sanviago Power']
+  ],
+  [
+    ['Creighton Fieldhawks', 'Larson Summiteers'],
+    ['Janders Brigade', 'Argonia Specters'],
+    ['Hawthorne Harriers', 'Pieska Pikes'],
+    ['Westingdon Kodiacs', 'Aventura Diablos'],
+    ['Rosdan Redtails', 'Sanviago Power'],
+    ['Solstan Solars', 'Andessa Vanguard']
+  ],
+  [
+    ['Argonia Specters', 'Creighton Fieldhawks'],
+    ['Pieska Pikes', 'Larson Summiteers'],
+    ['Hawthorne Harriers', 'Janders Brigade'],
+    ['Sanviago Power', 'Westingdon Kodiacs'],
+    ['Andessa Vanguard', 'Aventura Diablos'],
+    ['Solstan Solars', 'Rosdan Redtails']
+  ],
+  [
+    ['Pieska Pikes', 'Creighton Fieldhawks'],
+    ['Hawthorne Harriers', 'Argonia Specters'],
+    ['Janders Brigade', 'Larson Summiteers'],
+    ['Andessa Vanguard', 'Westingdon Kodiacs'],
+    ['Solstan Solars', 'Sanviago Power'],
+    ['Rosdan Redtails', 'Aventura Diablos']
+  ],
+  [
+    ['Hawthorne Harriers', 'Creighton Fieldhawks'],
+    ['Janders Brigade', 'Pieska Pikes'],
+    ['Larson Summiteers', 'Argonia Specters'],
+    ['Solstan Solars', 'Westingdon Kodiacs'],
+    ['Rosdan Redtails', 'Andessa Vanguard'],
+    ['Aventura Diablos', 'Sanviago Power']
+  ],
+  [
+    ['Janders Brigade', 'Creighton Fieldhawks'],
+    ['Larson Summiteers', 'Hawthorne Harriers'],
+    ['Argonia Specters', 'Pieska Pikes'],
+    ['Rosdan Redtails', 'Westingdon Kodiacs'],
+    ['Aventura Diablos', 'Solstan Solars'],
+    ['Sanviago Power', 'Andessa Vanguard']
+  ],
+  [
+    ['Larson Summiteers', 'Creighton Fieldhawks'],
+    ['Argonia Specters', 'Janders Brigade'],
+    ['Pieska Pikes', 'Hawthorne Harriers'],
+    ['Aventura Diablos', 'Westingdon Kodiacs'],
+    ['Sanviago Power', 'Rosdan Redtails'],
+    ['Andessa Vanguard', 'Solstan Solars']
+  ]
+]

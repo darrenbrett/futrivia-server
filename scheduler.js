@@ -32,12 +32,9 @@ const alternate = (rounds, repeats) => {
   return alt;
 };
 
-const east = [...easternConfTeams];
-const west = [...westernConfTeams];
-
 let schedule = [
-  ...alternate(roundrobin([...east, ...west]), 2),
-  ...alternate(combine(roundrobin(east), roundrobin(west)), 2)
+  ...alternate(roundrobin([...easternConfTeams, ...westernConfTeams]), 2),
+  ...alternate(combine(roundrobin(easternConfTeams), roundrobin(westernConfTeams)), 2)
 ];
 
 console.log(schedule);

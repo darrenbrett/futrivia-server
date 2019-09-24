@@ -1,3 +1,5 @@
+// "use strict";
+
 // generator player speed (6 - 10)
 genSpeed = () => {
   const min = 6;
@@ -22,31 +24,26 @@ genSoccerIntelligence = () => {
 // generate player strength
 genStrength = () => {
   const min = 5;
-  const max = 10
+  const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate player height and weight
 genHeightAndWeight = () => {
   let initialHeight;
-  let adjustedHeight;
-  let finalHeight;
-  const min = 54;
-  const max = 66;
+  let height;
+  let weight;
+  const min = 56;
+  const max = 65;
   initialHeight = Math.floor(Math.random() * (max - min + 1)) + min;
-  if (initialHeight <= 56) {
-    console.log('hit height threshold...');
-    adjustedHeight = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
-    finalHeight = initialHeight + adjustedHeight;
-    return finalHeight / 10;
-  }
-  finalHeight = initialHeight;
-  finalWeight = finalHeight * 31 / 10;
-  finalHeight = finalHeight / 10;
+  // TODO: Add some variability above and below for outliers
+  height = initialHeight;
+  weight = height * 31 / 10;
+  height = height / 10;
 
   return {
-    finalHeight,
-    finalWeight
+    height,
+    weight
   };
 };
 
@@ -91,6 +88,7 @@ genPlayerProfile = () => {
   console.log(playerProfile);
 
   let playerAvgScore;
+  let roundedAvgScore;
 
   playerAvgScore = genProfileAverage(speed, ballHandling, soccerIntelligence, strength, mentalFortitude, physicalFortitude);
   roundedAvgScore = playerAvgScore.toFixed(2);

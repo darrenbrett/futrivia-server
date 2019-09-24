@@ -1,28 +1,28 @@
-// "use strict";
+"use strict";
 
 const fs = require('fs');
 
 const firstNames = require('./data/firstNames');
 const lastNames = require('./data/lastNames');
 
-getRandomFirstName = () => {
+const getRandomFirstName = () => {
   const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
   return firstName;
 };
 
-getRandomLastName = () => {
+const getRandomLastName = () => {
   const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
   return lastName;
 };
 
-genFullName = () => {
+const genFullName = () => {
   const firstName = getRandomFirstName();
   const lastName = getRandomLastName();
   const fullName = `${firstName} ${lastName}`;
   return fullName;
 };
 
-genFullNames = (num) => {
+const genFullNames = (num) => {
   let names = [];
   for (let i = 0; i < num; i++) {
     let fullName = genFullName();
@@ -33,7 +33,7 @@ genFullNames = (num) => {
 };
 
 // genFullName();
-genFullNames(5);
+// genFullNames(5);
 
 module.exports = {
   genFullName,

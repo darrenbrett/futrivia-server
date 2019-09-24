@@ -4,8 +4,17 @@
   "description": "",
   "main": "genScores.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "start nodemon app.js"
   },
   "author": "Darren King",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.8.1",
+    "koa-body": "^4.1.1",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
 }

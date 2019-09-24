@@ -1,35 +1,37 @@
-// "use strict";
+"use strict";
+
+const genName = require("../genName");
 
 // generator player speed (6 - 10)
-genSpeed = () => {
+const genSpeed = () => {
   const min = 6;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate player ball handling ability
-genBallHandling = () => {
+const genBallHandling = () => {
   const min = 5;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate player soccer smarts
-genSoccerIntelligence = () => {
+const genSoccerIntelligence = () => {
   const min = 6;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate player strength
-genStrength = () => {
+const genStrength = () => {
   const min = 5;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate player height and weight
-genHeightAndWeight = () => {
+const genHeightAndWeight = () => {
   let initialHeight;
   let height;
   let weight;
@@ -48,25 +50,25 @@ genHeightAndWeight = () => {
 };
 
 // generate mental fortitude
-genMentalFortitude = () => {
+const genMentalFortitude = () => {
   const min = 7;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 // generate physicial fortitude
-genPhysicalFortitude = () => {
+const genPhysicalFortitude = () => {
   const min = 6;
   const max = 10;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-genProfileAverage = (speed, ballHandling, soccerIntelligence, strength, mentalFortitude, physicalFortitude) => {
+const genProfileAverage = (speed, ballHandling, soccerIntelligence, strength, mentalFortitude, physicalFortitude) => {
   let score = speed + ballHandling + soccerIntelligence + strength + mentalFortitude + physicalFortitude;
   return score / 60 * 10;
 };
 
-genPlayerProfile = () => {
+const genPlayerProfile = () => {
   const speed = genSpeed();
   const ballHandling = genBallHandling();
   const soccerIntelligence = genSoccerIntelligence();
@@ -74,8 +76,10 @@ genPlayerProfile = () => {
   const mentalFortitude = genMentalFortitude();
   const physicalFortitude = genPhysicalFortitude();
   const heightAndWeight = genHeightAndWeight();
+  const name = genName.genFullName();
 
   let playerProfile = {
+    name,
     speed,
     ballHandling,
     soccerIntelligence,

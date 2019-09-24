@@ -26,8 +26,8 @@ genStrength = () => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// generate player height
-genHeight = () => {
+// generate player height and weight
+genHeightAndWeight = () => {
   let initialHeight;
   let adjustedHeight;
   let finalHeight;
@@ -41,7 +41,13 @@ genHeight = () => {
     return finalHeight / 10;
   }
   finalHeight = initialHeight;
-  return finalHeight / 10;
+  finalWeight = finalHeight * 31 / 10;
+  finalHeight = finalHeight / 10;
+
+  return {
+    finalHeight,
+    finalWeight
+  };
 };
 
 // generate mental fortitude
@@ -70,22 +76,26 @@ genPlayerProfile = () => {
   const strength = genStrength();
   const mentalFortitude = genMentalFortitude();
   const physicalFortitude = genPhysicalFortitude();
-  const height = genHeight();
+  const heightAndWeight = genHeightAndWeight();
 
   let playerProfile = {
     speed,
     ballHandling,
     soccerIntelligence,
     strength,
-    height,
+    heightAndWeight,
     mentalFortitude,
     physicalFortitude
   };
 
   console.log(playerProfile);
 
-  const playerAvgScore = genProfileAverage(speed, ballHandling, soccerIntelligence, strength, mentalFortitude, physicalFortitude);
-  console.log('playerAvgScore: ', `${playerAvgScore}`);
+  let playerAvgScore;
+
+  playerAvgScore = genProfileAverage(speed, ballHandling, soccerIntelligence, strength, mentalFortitude, physicalFortitude);
+  roundedAvgScore = playerAvgScore.toFixed(2);
+
+  console.log('playerAvgScore: ', `${roundedAvgScore}`);
 };
 
 genPlayerProfile();

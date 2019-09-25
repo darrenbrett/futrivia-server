@@ -98,6 +98,8 @@ const genPlayerProfile = () => {
   roundedAvgScore = playerAvgScore.toFixed(2);
 
   console.log('playerAvgScore: ', `${roundedAvgScore}`);
+
+  return playerProfile;
 };
 
 genPlayerProfile();

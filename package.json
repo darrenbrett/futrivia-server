@@ -2,9 +2,9 @@
   "name": "evpsf-code",
   "version": "1.0.0",
   "description": "",
-  "main": "genScores.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "start nodemon app.js"
+    "test": "start nodemon src/app.js"
   },
   "author": "Darren King",
   "license": "ISC",
@@ -13,7 +13,8 @@
     "koa-body": "^4.1.1",
     "koa-body-parser": "^1.1.2",
     "koa-json": "^2.0.2",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.7.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

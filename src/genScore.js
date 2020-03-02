@@ -15,20 +15,10 @@ function getHomeXFactor() {
   return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
 }
 
-// function getAwayXFactor() {
-//   min = Math.ceil(0);
-//   max = Math.floor(10);
-//   return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
-// }
+let homeTeamRating = 0;
+let awayTeamRating = 0;
 
-let draws = 0;
-let scorelessDraws = 0;
-let homeTeamWins = 0;
-let awayTeamWins = 0;
-let homeTeamRating;
-let awayTeamRating;
-
-const genScore = function(awayTeam, homeTeam) {
+const genScore = async function(awayTeam, homeTeam) {
   // loop through and get homeTeam and awayTeam ratings
   for (let teamStrength of teamStrengths) {
     if (teamStrength.name === homeTeam) {
@@ -86,67 +76,13 @@ const genScore = function(awayTeam, homeTeam) {
   } else if (awayXFactor == 7) {
     finalAwayScore = 0;
   }
+  console.log(`${homeTeam} ${finalHomeScore}`);
+  console.log(`${awayTeam} ${finalAwayScore}`);
 
-  // console.log("Aventura: ", finalHomeScore);
-  // console.log("Hawthorne: ", finalAwayScore);
-  // console.log("---------------------------");
-
-  // if (finalHomeScore === 0 && finalAwayScore === 0) {
-  //   scorelessDraws++;
-  // }
-
-  // if (finalHomeScore === finalAwayScore) {
-  //   draws++;
-  // }
-
-  // if (finalHomeScore > finalAwayScore) {
-  //   homeTeamWins++;
-  // }
-
-  // if (finalAwayScore > finalHomeScore) {
-  //   awayTeamWins++;
-  // }
+  return `${homeTeam} ${finalHomeScore} : ${awayTeam} ${finalAwayScore}`;
 };
 
-const getTotalsStrongHomeWeakAway = () => {
-  let iterations = 100;
-  for (let i = 0; i < iterations; i++) {
-    genScore("Solston", "Janders");
-  }
-
-  // PRINT AGG RESULTS
-  console.log();
-  console.log("STRONG/WEAK DONE!!!");
-  console.log();
-  console.log("Games played: ", draws + homeTeamWins + awayTeamWins);
-  console.log("----------------------------");
-  console.log("draws: ", draws);
-  // console.log('scoreLessDraws: ', scorelessDraws);
-  console.log("homeTeamWins: ", homeTeamWins);
-  console.log("awayTeamWins: ", awayTeamWins);
-  console.log();
+module.exports = {
+  genScore
 };
 
-const getTotalsEquallyMatched = () => {
-  let iterations = 1000;
-  for (let i = 0; i < iterations; i++) {
-    genScore("Janders", "Aventura");
-  }
-
-  // PRINT AGG RESULTS
-  console.log();
-  console.log("EQUALLY MATCHED DONE!!!");
-  console.log();
-  console.log("Games played: ", draws + homeTeamWins + awayTeamWins);
-  console.log("----------------------------");
-  console.log("draws: ", draws);
-  // console.log('scoreLessDraws: ', scorelessDraws);
-  console.log("homeTeamWins: ", homeTeamWins);
-  console.log("awayTeamWins: ", awayTeamWins);
-  console.log();
-};
-
-// getTotalsStrongHomeWeakAway();
-// getTotalsEquallyMatched();
-
-genScore("Hawthorne", "Andessa");

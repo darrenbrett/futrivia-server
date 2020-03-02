@@ -3,7 +3,6 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
 const json = require('koa-json');
-const bodyParser = require('koa-body-parser');
 
 const lastNames = require('./data/lastNames.json');
 

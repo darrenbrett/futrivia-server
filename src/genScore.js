@@ -76,10 +76,10 @@ const genScore = async function(awayTeam, homeTeam) {
   } else if (awayXFactor == 7) {
     finalAwayScore = 0;
   }
-  console.log(`${homeTeam} ${finalHomeScore}`);
-  console.log(`${awayTeam} ${finalAwayScore}`);
+  // console.log(`${awayTeam} ${finalAwayScore}`);
+  // console.log(`${homeTeam} ${finalHomeScore}`);
 
-  return `${homeTeam} ${finalHomeScore} : ${awayTeam} ${finalAwayScore}`;
+  return `${awayTeam} ${finalAwayScore} : ${homeTeam} ${finalHomeScore}`;
 };
 
 module.exports = {

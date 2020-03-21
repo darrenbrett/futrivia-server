@@ -1,40 +1,77 @@
-const eligPlayersTest = ["John Smith", "Alexis Andresen", "Jose Alvarez", "Vincent Thomas", "Juan Sanchez"];
-let eligPlayers = [];
-let goalScorers = [];
-const totalGoals = 3;
+const getPenaltiesResult = require('./getPenalties');
+const argoniaPlayers = require('./data/rosters/argonia-roster');
+const andessaPlayers = require('./data/rosters/andessa-roster');
+const creightonPlayers = require('./data/rosters/creighton-roster');
+const larsonPlayers = require('./data/rosters/larson-roster');
+const sanviagoPlayers = require('./data/rosters/sanviago-roster');
+const solstanPlayers = require('./data/rosters/solstan-roster');
+const jandersPlayers = require('./data/rosters/janders-roster');
+const rosdanPlayers = require('./data/rosters/rosdan-roster');
+const hawthornePlayers = require('./data/rosters/hawthorne-roster');
+const pieskaPlayers = require('./data/rosters/pieska-roster');
+const aventuraPlayers = require('./data/rosters/aventura-diablos');
+const westingdonPlayers = require('./data/rosters/westingdon-roster');
 
-async function getEligiblePlayers(team) {
-  if (!team) return;
-
-  // Get array of players available to score
-  eligPlayers = await Player.find({
-    currentTeam: team,
-    playStatus: active
-  });
-}
+let eligHomePlayers = [];
+let eligAwayPlayers = [];
+let awayTeamGoalScorers = [];
+let homeTeamGoalScorers = [];
 
 function getScorer(eligPlayers) {
-  const scorer = eligPlayers[Math.floor(Math.random()*eligPlayers.length)];
-  console.log('scorer: ', scorer);
-  return scorer;
-}
-
-// console.log('scorer: ', scorer);
-
-let iterations = 0;
-
-async function getScorersForGoals(iterations, totalGoals) {
-  eligPlayers = await getEligiblePlayers() || eligPlayersTest;
-  while (iterations < totalGoals) {
-    console.log('iterations: ', iterations);
-    console.log('goalScorers: ', goalScorers.length);
-    let goalScorer = getScorer(eligPlayers);
-    goalScorers.push(goalScorer);
-    console.log('goalScorers: ', goalScorers);
-    iterations = iterations +1;
+  if (eligPlayers.length) {
+    const scorer = eligPlayers[Math.floor(Math.random() * eligPlayers.length)];
+    return scorer;
   }
 }
 
-console.log('getScorersForGoals: ', getScorersForGoals(iterations, totalGoals, eligPlayers));
+async function getEligiblePlayers(team) {
+  if (team === "Andessa") return andessaPlayers;
+  if (team === "Argonia") return argoniaPlayers;
+  if (team === "Creighton") return creightonPlayers;
+  if (team === "Larson") return larsonPlayers;
+  if (team === "Sanviago") return sanviagoPlayers;
+  if (team === "Solstan") return solstanPlayers;
+  if (team === "Janders") return jandersPlayers;
+  if (team === "Hawthorne") return hawthornePlayers;
+  if (team === "Rosdan") return rosdanPlayers;
+  if (team === "Pieska") return pieskaPlayers;
+  if (team === "Aventura") return aventuraPlayers;
+  if (team === "Westingdon") return westingdonPlayers;
+}
+
+async function getAwayTeamScorers(args) {
+    let awayTeamIterations = 0;
+    eligAwayPlayers = await getEligiblePlayers(args.awayTeam.trim());
+    while (awayTeamIterations < args.awayTeamNumOfGoals) {
+      let goalScorer = getScorer(eligAwayPlayers);
+      awayTeamGoalScorers.push(goalScorer);
+      awayTeamIterations = awayTeamIterations +1;
+    }
+    console.log('awayTeamGoalScorers: ', awayTeamGoalScorers);
+    const whichGoal = args.homeTeamNumOfGoals[Math.floor(Math.random() * args.homeTeamNumOfGoals.length)];
+    let awayTeamPenalty = getPenaltiesResult(whichGoal);
+    if (awayTeamPenalty) console.log('awayTeamPenalty: ', awayTeamPenalty);
+  return awayTeamGoalScorers;
+}
+
+async function getHomeTeamScorers(args) {
+    let homeTeamIterations = 0;
+    eligHomePlayers = await getEligiblePlayers(args.homeTeam.trim());
+    while (homeTeamIterations < args.homeTeamNumOfGoals) {
+      let goalScorer = getScorer(eligHomePlayers);
+      homeTeamGoalScorers.push(goalScorer);
+      homeTeamIterations = homeTeamIterations +1;
+    }
+    console.log('homeTeamGoalScorers: ', homeTeamGoalScorers);
+    const whichGoal = args.homeTeamNumOfGoals[Math.floor(Math.random() * args.homeTeamNumOfGoals.length)];
+    let homeTeamPenalty = getPenaltiesResult(whichGoal);
+    if (homeTeamPenalty) console.log('homeTeamPenalty: ', homeTeamPenalty);
+  return homeTeamGoalScorers;
+}
+
+async function getScorersForGoals(args) {
+  await getAwayTeamScorers(args);
+  await getHomeTeamScorers(args);
+}
 
 module.exports = getScorersForGoals;

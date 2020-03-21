@@ -1,45 +1,46 @@
-'use strict';
+const playGame = require('./genScore');
+const getScorersForGoals = require('./getScorersForGame');
+const getTimesOfGoals = require('./getTimesOfGoals');
+const goalDetails = require('./getGoalTypes');
 
-const Koa = require('koa');
-const KoaRouter = require('koa-router');
-const json = require('koa-json');
+getGameResults = async function () {
+  let awayTeam = "Andessa";
+  let homeTeam = "Argonia";
+  let score = await playGame.genScore(awayTeam, homeTeam);
+  console.log('---------------------------------------------------');
+  console.log('SCORE: ', score);
+  console.log('---------------------------------------------------');
+  let goalsArr = score.split(":");
+  awayTeam = goalsArr[0];
+  awayTeam = awayTeam.substring(0, awayTeam.length - 3);
+  homeTeam = goalsArr[1];
+  homeTeam = homeTeam.substring(0, homeTeam.length - 2);
 
-const lastNames = require('./data/lastNames.json');
+  const firstStr = goalsArr[0].trim();
+  const awayTeamNumOfGoals = firstStr.charAt(firstStr.length - 1);
 
-const app = new Koa();
-const router = new KoaRouter();
+  const secondStr = goalsArr[1].trim();
+  const homeTeamNumOfGoals = secondStr.charAt(secondStr.length - 1);
 
-// JSON Prettier middleware
-app.use(json());
-
-// app.use(body);
-
-app.use(router.routes()).use(router.allowedMethods());
-
-app.use(async ctx => {
-  ctx.body = {
-    greeting: 'Hello North Carolina!'
+  let args = {
+    awayTeam,
+    awayTeamNumOfGoals,
+    homeTeam,
+    homeTeamNumOfGoals
   };
-  // ctx.response.status = 202;
-});
 
-const test = async (ctx) => {
-  ctx.body = {
-    greeting: 'Hello Test!'
-  };
+  getScorersForGoals(args);
+  const awayTeamGoalTimes = getTimesOfGoals(awayTeamNumOfGoals);
+  const homeTeamGoalTimes = getTimesOfGoals(homeTeamNumOfGoals);
+
+  const awayTeamGoalTypes = await goalDetails.getTypesForGoals(awayTeamNumOfGoals);
+  const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
+
+  console.log('awayTeamGoalTimes: ', awayTeamGoalTimes);
+  console.log('awayTeamGoalTypes: ', awayTeamGoalTypes);
+  console.log('---------------------------------------------------');
+  console.log('homeTeamGoalTimes: ', homeTeamGoalTimes);
+  console.log('homeTeamGoalTypes: ', homeTeamGoalTypes);
 };
 
-const getLastNames = async (ctx) => {
-  ctx.body = {
-    lastNames
-  };
-};
-
-// Routes
-router.get('/test', test);
-
-router.get('/last-names', getLastNames);
-
-app.listen(3000, () => {
-  console.log('Running on port 3000...');
-});
+getGameResults();

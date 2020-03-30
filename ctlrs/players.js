@@ -4,7 +4,9 @@ const getPlayer = async () => {
   let player;
   try {
     const filter = {
-      aggScore: { $gt: 9 }
+      aggScore: {
+        $gt: 9
+      }
     };
     player = await queryHandler.findOne("players", filter);
     console.log("player: ", player);
@@ -14,11 +16,13 @@ const getPlayer = async () => {
   return player;
 };
 
-const getBestPlayers = async () => {
+const getPremiumPlayers = async () => {
   let players = [];
   try {
     const filter = {
-      aggScore: { $gt: 9 }
+      aggScore: {
+        $gt: 9
+      }
     };
     players = await queryHandler.find("players", filter);
     console.log("players.length: ", players.length);
@@ -39,11 +43,48 @@ const getTop10 = async () => {
   } catch (error) {
     console.log(error);
   }
-  let truncPlayers = players.map(({ name, aggScore, currentTeam }) => ({ name, aggScore, currentTeam }));
+  let truncPlayers = players.map(({
+    name,
+    aggScore,
+    currentTeam
+  }) => ({
+    name,
+    aggScore,
+    currentTeam
+  }));
+  console.log("truncPlayers: ", truncPlayers);
+  return truncPlayers;
+};
+
+const getPlayersPerTeam = async () => {
+  let playersForTeam = [];
+  try {
+    const filter = {
+      currentTeam: "Westingdon"
+    };
+    const sort = {
+      aggScore: -1
+    };
+    playersForTeam = await queryHandler.find("players", filter, sort);
+  } catch (error) {
+    console.log(error);
+  }
+  let truncPlayers = playersForTeam.map(({
+    name,
+    currentTeam,
+    aggScore,
+    position
+  }) => ({
+    name,
+    currentTeam,
+    aggScore,
+    position
+  }));
   console.log("truncPlayers: ", truncPlayers);
   return truncPlayers;
 };
 
 // getPlayer();
-// getBestPlayers();
-getTop10();
+// getPremiumPlayers();
+// getTop10();
+getPlayersPerTeam();

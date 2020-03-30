@@ -31,13 +31,14 @@ async function findOneAndUpdate(collection, targetProp, updateOp) {
   return result;
 }
 
-async function find(collection, filter = {}) {
+async function find(collection, filter = {}, sort = {}) {
   let dataArr = [];
   const connection = await connect();
   const db = connection.db(dbName);
   await db
     .collection(collection)
     .find(filter)
+    .sort(sort)
     .forEach(doc => {
       dataArr.push(doc);
     });

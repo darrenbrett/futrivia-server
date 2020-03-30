@@ -2,9 +2,10 @@
   "name": "evpsf-code",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "start nodemon app.js"
+    "test": "set NODE_ENV=development && mocha",
+    "start": "node server"
   },
   "author": "Darren King",
   "license": "ISC",

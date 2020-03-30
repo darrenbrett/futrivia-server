@@ -13,6 +13,7 @@ const start = async () => {
     }
   };
   console.log(`Connected to ${process.env.NODE_ENV} database`);
+  return connectionOpts;
 };
 
 start().catch(error => {

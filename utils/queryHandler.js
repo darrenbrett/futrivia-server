@@ -1,7 +1,7 @@
-const mongodb = require('mongodb');
-const config = require('./../configuration');
-const url = config.get('MONGO_URL');
-const dbName = config.get('MONGO_DATABASE');
+const mongodb = require("mongodb");
+const config = require("./../configuration");
+const url = config.get("MONGO_URL");
+const dbName = config.get("MONGO_DATABASE");
 
 async function connect() {
   const connection = await mongodb.MongoClient.connect(`${url}`, {
@@ -31,6 +31,37 @@ async function findOneAndUpdate(collection, targetProp, updateOp) {
   return result;
 }
 
+async function find(collection, filter = {}) {
+  let dataArr = [];
+  const connection = await connect();
+  const db = connection.db(dbName);
+  await db
+    .collection(collection)
+    .find(filter)
+    .forEach(doc => {
+      dataArr.push(doc);
+    });
+
+  await connection.close();
+  return dataArr;
+}
+
+async function findTop(collection, filter, limit) {
+  let dataArr = [];
+  const connection = await connect();
+  const db = connection.db(dbName);
+  await db
+    .collection(collection)
+    .find()
+    .sort(filter)
+    .limit(limit)
+    .forEach(doc => {
+      dataArr.push(doc);
+    });
+  await connection.close();
+  return dataArr;
+}
+
 async function deleteMany(collection, filter = {}) {
   const connection = await connect();
   const db = connection.db(dbName);
@@ -50,6 +81,8 @@ async function insert(collection, docs) {
 module.exports = {
   findOne,
   findOneAndUpdate,
+  find,
+  findTop,
   insert,
   deleteMany
 };

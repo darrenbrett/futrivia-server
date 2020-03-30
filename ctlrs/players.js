@@ -1,13 +1,8 @@
 const queryHandler = require("./../utils/queryHandler");
 
-const getPlayer = async () => {
+const getPlayer = async (filter) => {
   let player;
   try {
-    const filter = {
-      aggScore: {
-        $gt: 9
-      }
-    };
     player = await queryHandler.findOne("players", filter);
     console.log("player: ", player);
   } catch (error) {
@@ -25,12 +20,22 @@ const getPremiumPlayers = async () => {
       }
     };
     players = await queryHandler.find("players", filter);
-    console.log("players.length: ", players.length);
-    console.log("players: ", players);
   } catch (error) {
     console.log(error);
   }
-  return players;
+  let truncPlayers = players.map(({
+    name,
+    currentTeam,
+    aggScore,
+    position
+  }) => ({
+    name,
+    currentTeam,
+    aggScore,
+    position
+  }));
+  console.log('AggScore > 9 Players: ', truncPlayers);
+  return truncPlayers;
 };
 
 const getTop10 = async () => {
@@ -85,6 +90,6 @@ const getPlayersPerTeam = async () => {
 };
 
 // getPlayer();
-// getPremiumPlayers();
+getPremiumPlayers();
 // getTop10();
-getPlayersPerTeam();
+// getPlayersPerTeam();

@@ -2,6 +2,7 @@ const playGame = require('./genScore');
 const getScorersForGoals = require('./getScorersForGame');
 const getTimesOfGoals = require('./getTimesOfGoals').getTimeForEachGoal;
 const goalDetails = require('./getGoalTypes');
+const writeGameResult = require('./writeGameResult');
 
 getGameResults = async function () {
   let awayTeam = "Janders";
@@ -41,6 +42,15 @@ getGameResults = async function () {
   console.log('---------------------------------------------------');
   console.log('homeTeamGoalTimes: ', homeTeamGoalTimes);
   console.log('homeTeamGoalTypes: ', homeTeamGoalTypes);
+
+  let gameDetails = {
+    score,
+    awayTeamGoalTimes,
+    awayTeamGoalTypes,
+    homeTeamGoalTimes,
+    homeTeamGoalTypes
+  };
+  writeGameResult(gameDetails);
 };
 
 getGameResults();

@@ -19,4 +19,7 @@ function getTimeForEachGoal(totalGoals) {
 
 getTimeForEachGoal();
 
-module.exports = getTimeForEachGoal;
+module.exports = {
+  getTimeForEachGoal,
+  getGoalTime
+};

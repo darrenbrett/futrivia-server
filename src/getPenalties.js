@@ -1,5 +1,7 @@
 "use strict";
 
+const getPenaltyAttemptTime = require('./getTimesOfGoals').getGoalTime;
+
 function getPenaltiesResult(whichGoal) {
   let penaltyAwarded = wasPenaltyAwarded();
   if (penaltyAwarded === false) {
@@ -26,7 +28,11 @@ function getPenaltyResult(whichGoal) {
   if (r < 0.77) {
     result = { 'goal' : whichGoal };
   } else {
-    result = 'save';
+    const penaltyAttemptTime = getPenaltyAttemptTime();
+    result = {
+      result: 'save',
+      penaltyAttemptTime : penaltyAttemptTime
+    };
   }
   return result;
 }

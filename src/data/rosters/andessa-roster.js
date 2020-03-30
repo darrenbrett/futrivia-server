@@ -3,6 +3,8 @@ module.exports = [
   "Mohammed Estes",
   "Mohammed Estes",
   "Mohammed Estes",
+  "Mohammed Estes",
+  "Diego Kemp",
   "Diego Kemp",
   "Diego Kemp",
   "Diego Kemp",

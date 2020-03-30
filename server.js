@@ -15,10 +15,6 @@ const start = async () => {
   console.log(`Connected to ${process.env.NODE_ENV} database`);
 };
 
-// const agenda = new Agenda(connectionOpts, async () => {
-//   console.log(`Connected to ${process.env.NODE_ENV} database`);
-// });
-
 start().catch(error => {
   console.error(error);
   process.exit(-1);

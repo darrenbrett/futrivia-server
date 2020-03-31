@@ -25,6 +25,39 @@ router.get("/api/player/:id", async (ctx) => {
     });
 });
 
+// Get players by team
+router.get("/api/players/team/:team", async (ctx) => {
+  const {
+    team
+  } = ctx.params;
+  await Player.find({
+      currentTeam: team
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get players by team
+router.get("/api/players/position/:position", async (ctx) => {
+  const {
+    position
+  } = ctx.params;
+  console.log(ctx.params);
+  await Player.find({
+      position: position
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
 router.get("/api/games", async ctx => {
   await Game.find()
     .then(games => {

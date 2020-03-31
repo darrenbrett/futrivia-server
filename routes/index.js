@@ -46,9 +46,46 @@ router.get("/api/players/position/:position", async (ctx) => {
   const {
     position
   } = ctx.params;
-  console.log(ctx.params);
   await Player.find({
       position: position
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get elite players - aggScore > 9
+router.get("/api/players/elite", async (ctx) => {
+  console.log(ctx.params);
+  await Player.find({
+      aggScore: {
+        $gt: 9
+      }
+    }).sort({
+      aggScore: -1
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get player by aggScore
+router.get("/api/players/top/:num", async (ctx) => {
+  const {
+    num
+  } = ctx.params;
+  await Player.find({
+      aggScore: {
+        $gte: parseFloat(num)
+      }
+    }).sort({
+      aggScore: -1
     })
     .then(players => {
       ctx.body = players;

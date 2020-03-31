@@ -3,15 +3,12 @@ const getScorersForGoals = require('./getScorersForGame');
 const getTimesOfGoals = require('./getTimesOfGoals').getTimeForEachGoal;
 const goalDetails = require('./getGoalTypes');
 const wasPenaltyMissed = require('./missedPenaltyCheck');
-const writeGameResult = require('./writeGameResult');
+const gamesCtlr = require('./../ctlrs/games');
 
 getGameResults = async function () {
   let awayTeam = "Janders";
   let homeTeam = "Westingdon";
   let score = await playGame.genScore(awayTeam, homeTeam);
-  // console.log('---------------------------------------------------');
-  // console.log('SCORE: ', score);
-  // console.log('---------------------------------------------------');
   let goalsArr = score.split(":");
   awayTeam = goalsArr[0];
   awayTeam = awayTeam.substring(0, awayTeam.length - 3);
@@ -52,7 +49,7 @@ getGameResults = async function () {
   };
 
   console.log('gameDetails: ', gameDetails);
-  writeGameResult(gameDetails);
+  await gamesCtlr.saveGame(gameDetails);
 };
 
 getGameResults();

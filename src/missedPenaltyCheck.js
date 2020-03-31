@@ -3,7 +3,9 @@ module.exports = async () => {
   let team;
   const r = Math.random();
   if (r > 0 && r <= 0.75) {
-    result = 'no missed penalty';
+    result = {
+      'result': 'no missed penalty'
+    };
   } else {
     let attemptTime = getAttemptTime();
     const t = Math.random();

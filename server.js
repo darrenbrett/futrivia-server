@@ -1,22 +1,17 @@
-"use strict";
+const Koa = require("koa");
+const app = new Koa();
+const bodyParser = require("koa-body");
+const mongoose = require("mongoose");
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+const routing = require("./routes");
 
-const config = require("./configuration");
-const url = config.get("MONGO_URL");
-const dbName = config.get("MONGO_DATABASE");
+app.use(bodyParser());
+app.use(routing.routes());
+const port = "3000";
 
-const start = async () => {
-  const connectionOpts = {
-    db: {
-      address: `${url}${dbName}`
-    }
-  };
-  console.log(`Connected to ${process.env.NODE_ENV} database`);
-  return connectionOpts;
-};
-
-start().catch(error => {
-  console.error(error);
-  process.exit(-1);
+mongoose.connect("mongodb://localhost:27017/evpsl", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
+
+app.listen(port, () => console.log(`Server started. Listening on port ${port}...`));

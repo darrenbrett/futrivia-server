@@ -5,19 +5,21 @@
   "main": "server.js",
   "scripts": {
     "test": "set NODE_ENV=development && mocha",
-    "start": "node server"
+    "start": "nodemon server"
   },
   "author": "Darren King",
   "license": "ISC",
   "dependencies": {
     "app-root-path": "^3.0.0",
     "koa": "^2.8.1",
+    "koa-body": "^4.1.1",
     "koa-bodyparser": "^4.2.1",
     "koa-json": "^2.0.2",
     "koa-morgan": "^1.0.1",
     "koa-response-time": "^2.1.0",
     "koa-router": "^7.4.0",
-    "mongodb": "^3.5.5"
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

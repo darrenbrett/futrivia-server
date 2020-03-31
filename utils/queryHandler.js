@@ -8,9 +8,6 @@ async function connect() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     sslValidate: false,
-    replSet: {
-      sslValidate: false
-    }
   });
   return connection;
 }
@@ -71,10 +68,10 @@ async function deleteMany(collection, filter = {}) {
   return result;
 }
 
-async function insert(collection, docs) {
+async function insertOne(collection, docs) {
   const connection = await connect();
   const db = connection.db(dbName);
-  const result = await db.collection(collection).insert(docs);
+  const result = await db.collection(collection).insertOne(docs);
   await connection.close();
   return result;
 }
@@ -84,6 +81,6 @@ module.exports = {
   findOneAndUpdate,
   find,
   findTop,
-  insert,
+  insertOne,
   deleteMany
 };

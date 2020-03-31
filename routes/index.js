@@ -3,6 +3,7 @@ const router = new Router();
 const Player = require("./../models/Player");
 const Game = require("./../models/Game");
 const Team = require("./../models/Team");
+const Round = require("./../models/Round");
 
 router.get("/api/players", async ctx => {
   await Player.find()
@@ -58,6 +59,26 @@ router.get("/api/team/:id", async (ctx) => {
   await Team.findOne()
     .then(team => {
       ctx.body = team;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+router.get("/api/rounds", async ctx => {
+  await Round.find()
+    .then(rounds => {
+      ctx.body = rounds;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+router.get("/api/round/:id", async (ctx) => {
+  await Round.findOne()
+    .then(round => {
+      ctx.body = round;
     })
     .catch(err => {
       ctx.body = "Error: " + err;

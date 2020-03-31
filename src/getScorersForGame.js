@@ -1,4 +1,3 @@
-const getPenaltiesResult = require('./getPenalties');
 const argoniaPlayers = require('./data/rosters/argonia-roster');
 const andessaPlayers = require('./data/rosters/andessa-roster');
 const creightonPlayers = require('./data/rosters/creighton-roster');
@@ -40,38 +39,35 @@ async function getEligiblePlayers(team) {
 }
 
 async function getAwayTeamScorers(args) {
-    let awayTeamIterations = 0;
-    eligAwayPlayers = await getEligiblePlayers(args.awayTeam.trim());
-    while (awayTeamIterations < args.awayTeamNumOfGoals) {
-      let goalScorer = getScorer(eligAwayPlayers);
-      awayTeamGoalScorers.push(goalScorer);
-      awayTeamIterations = awayTeamIterations +1;
-    }
-    console.log('awayTeamGoalScorers: ', awayTeamGoalScorers);
-    const whichGoal = args.homeTeamNumOfGoals[Math.floor(Math.random() * args.homeTeamNumOfGoals.length)];
-    let awayTeamPenalty = getPenaltiesResult(whichGoal);
-    if (awayTeamPenalty) console.log('awayTeamPenalty: ', awayTeamPenalty);
+  let awayTeamIterations = 0;
+  eligAwayPlayers = await getEligiblePlayers(args.awayTeam.trim());
+  while (awayTeamIterations < args.awayTeamNumOfGoals) {
+    let goalScorer = getScorer(eligAwayPlayers);
+    awayTeamGoalScorers.push(goalScorer);
+    awayTeamIterations = awayTeamIterations + 1;
+  }
   return awayTeamGoalScorers;
 }
 
 async function getHomeTeamScorers(args) {
-    let homeTeamIterations = 0;
-    eligHomePlayers = await getEligiblePlayers(args.homeTeam.trim());
-    while (homeTeamIterations < args.homeTeamNumOfGoals) {
-      let goalScorer = getScorer(eligHomePlayers);
-      homeTeamGoalScorers.push(goalScorer);
-      homeTeamIterations = homeTeamIterations +1;
-    }
-    console.log('homeTeamGoalScorers: ', homeTeamGoalScorers);
-    const whichGoal = args.homeTeamNumOfGoals[Math.floor(Math.random() * args.homeTeamNumOfGoals.length)];
-    let homeTeamPenalty = getPenaltiesResult(whichGoal);
-    if (homeTeamPenalty) console.log('homeTeamPenalty: ', homeTeamPenalty);
+  let homeTeamIterations = 0;
+  eligHomePlayers = await getEligiblePlayers(args.homeTeam.trim());
+  while (homeTeamIterations < args.homeTeamNumOfGoals) {
+    let goalScorer = getScorer(eligHomePlayers);
+    homeTeamGoalScorers.push(goalScorer);
+    homeTeamIterations = homeTeamIterations + 1;
+  }
   return homeTeamGoalScorers;
 }
 
 async function getScorersForGoals(args) {
-  await getAwayTeamScorers(args);
-  await getHomeTeamScorers(args);
+  let awayTeamScorers = await getAwayTeamScorers(args);
+  let homeTeamScorers = await getHomeTeamScorers(args);
+  let goalScorers = {
+    "awayTeamScorers": awayTeamScorers,
+    "homeTeamScorers": homeTeamScorers
+  };
+  return goalScorers;
 }
 
 module.exports = getScorersForGoals;

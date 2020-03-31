@@ -2,15 +2,16 @@ const playGame = require('./genScore');
 const getScorersForGoals = require('./getScorersForGame');
 const getTimesOfGoals = require('./getTimesOfGoals').getTimeForEachGoal;
 const goalDetails = require('./getGoalTypes');
+const wasPenaltyMissed = require('./missedPenaltyCheck');
 const writeGameResult = require('./writeGameResult');
 
 getGameResults = async function () {
   let awayTeam = "Janders";
   let homeTeam = "Westingdon";
   let score = await playGame.genScore(awayTeam, homeTeam);
-  console.log('---------------------------------------------------');
-  console.log('SCORE: ', score);
-  console.log('---------------------------------------------------');
+  // console.log('---------------------------------------------------');
+  // console.log('SCORE: ', score);
+  // console.log('---------------------------------------------------');
   let goalsArr = score.split(":");
   awayTeam = goalsArr[0];
   awayTeam = awayTeam.substring(0, awayTeam.length - 3);
@@ -30,26 +31,27 @@ getGameResults = async function () {
     homeTeamNumOfGoals
   };
 
-  getScorersForGoals(args);
+  const penaltyMissed = await wasPenaltyMissed();
+
+  const goalScorers = await getScorersForGoals(args);
+
   const awayTeamGoalTimes = getTimesOfGoals(awayTeamNumOfGoals);
   const homeTeamGoalTimes = getTimesOfGoals(homeTeamNumOfGoals);
 
   const awayTeamGoalTypes = await goalDetails.getTypesForGoals(awayTeamNumOfGoals);
   const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
 
-  console.log('awayTeamGoalTimes: ', awayTeamGoalTimes);
-  console.log('awayTeamGoalTypes: ', awayTeamGoalTypes);
-  console.log('---------------------------------------------------');
-  console.log('homeTeamGoalTimes: ', homeTeamGoalTimes);
-  console.log('homeTeamGoalTypes: ', homeTeamGoalTypes);
-
-  let gameDetails = {
+  const gameDetails = {
     score,
+    goalScorers,
     awayTeamGoalTimes,
     awayTeamGoalTypes,
     homeTeamGoalTimes,
-    homeTeamGoalTypes
+    homeTeamGoalTypes,
+    penaltyMissed
   };
+
+  console.log('gameDetails: ', gameDetails);
   writeGameResult(gameDetails);
 };
 

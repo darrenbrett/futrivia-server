@@ -1,1 +1,16 @@
-{"score":"Janders 1 : Westingdon 4","awayTeamGoalTimes":[42],"awayTeamGoalTypes":["far post slotted"],"homeTeamGoalTimes":[22,69,73,87],"homeTeamGoalTypes":["far post laser","own goal","near post laser","near post slotted"]}
+{
+  "score": "Janders 1 : Westingdon 2",
+  "goalScorers": {
+    "awayTeamScorers": ["Ricardo Combs"],
+    "homeTeamScorers": ["Hunter Anderson", "Zayden Ortega"]
+  },
+  "awayTeamGoalTimes": [59],
+  "awayTeamGoalTypes": ["penalty"],
+  "homeTeamGoalTimes": [14, 32],
+  "homeTeamGoalTypes": ["penalty", "penalty"],
+  "penaltyMissed": {
+    "result": "saved",
+    "attemptTime": 33,
+    "team": "home"
+  }
+}

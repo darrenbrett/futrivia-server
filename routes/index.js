@@ -13,10 +13,30 @@ router.get("/api/players", async ctx => {
     });
 });
 
+router.get("/api/player/:id", async (ctx) => {
+  await Player.findOne()
+    .then(player => {
+      ctx.body = player;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
 router.get("/api/games", async ctx => {
   await Game.find()
     .then(games => {
       ctx.body = games;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+router.get("/api/game/:id", async (ctx) => {
+  await Game.findOne()
+    .then(game => {
+      ctx.body = game;
     })
     .catch(err => {
       ctx.body = "Error: " + err;

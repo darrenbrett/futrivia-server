@@ -75,14 +75,35 @@ router.get("/api/players/elite", async (ctx) => {
     });
 });
 
-// Get player by aggScore
-router.get("/api/players/top/:num", async (ctx) => {
+// Get player by > aggScore
+router.get("/api/players/above/:num", async (ctx) => {
   const {
     num
   } = ctx.params;
   await Player.find({
       aggScore: {
-        $gte: parseFloat(num)
+        $gt: parseFloat(num)
+      }
+    }).sort({
+      aggScore: -1
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+
+// Get player by < aggScore
+router.get("/api/players/below/:num", async (ctx) => {
+  const {
+    num
+  } = ctx.params;
+  await Player.find({
+      aggScore: {
+        $lt: parseFloat(num)
       }
     }).sort({
       aggScore: -1

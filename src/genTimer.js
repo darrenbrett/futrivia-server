@@ -1,9 +1,11 @@
 module.exports = (gameDetails) => {
   let i = 0;
+  let homeTeamFirstHalfGoals = 0;
+  let awayTeamFirstHalfGoals = 0;
+
   let timerId = setTimeout(function tick() {
     if (i == 0) console.log('Game is underway!');
     console.log(`${i++}'`);
-    if (i == 45) console.log('Half-time!');
     for (let g of gameDetails.awayTeamGoalTimes) {
       if (i == g) {
         console.log(`Away goal in minute ${i}!`);
@@ -28,12 +30,28 @@ module.exports = (gameDetails) => {
         }
       }
     }
+
+    if (i == 45) {
+      for (let hg of gameDetails.homeTeamGoalTimes) {
+        if (hg < 45) {
+          homeTeamFirstHalfGoals++;
+        }
+      }
+      for (let ag of gameDetails.awayTeamGoalTimes) {
+        if (ag < 45) {
+          awayTeamFirstHalfGoals++;
+        }
+      }
+      console.log('Half-time!');
+      console.log(`Score is AWAY ${awayTeamFirstHalfGoals} to HOME ${homeTeamFirstHalfGoals}`);
+    }
+
     if (i == 92) {
       console.log('End of game!');
       console.log(gameDetails);
       return;
     }
-    timerId = setTimeout(tick, 2000); // (*)
+    timerId = setTimeout(tick, 2000);
   });
 
 

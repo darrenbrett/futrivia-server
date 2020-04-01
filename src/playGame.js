@@ -7,8 +7,8 @@ const gamesCtlr = require('./../ctlrs/games');
 const genTimer = require('./genTimer');
 
 getGameResults = async function () {
-  let awayTeam = "Janders";
-  let homeTeam = "Creighton";
+  let awayTeam = "Hawthorne";
+  let homeTeam = "Aventura";
   let score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
   awayTeam = goalsArr[0];

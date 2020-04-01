@@ -40,6 +40,8 @@ getGameResults = async function () {
   const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
 
   const gameDetails = {
+    awayTeam,
+    homeTeam,
     score,
     goalScorers,
     awayTeamGoalTimes,

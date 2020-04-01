@@ -4,10 +4,11 @@ const getTimesOfGoals = require('./getTimesOfGoals').getTimeForEachGoal;
 const goalDetails = require('./getGoalTypes');
 const wasPenaltyMissed = require('./missedPenaltyCheck');
 const gamesCtlr = require('./../ctlrs/games');
+const genTimer = require('./genTimer');
 
 getGameResults = async function () {
   let awayTeam = "Janders";
-  let homeTeam = "Westingdon";
+  let homeTeam = "Creighton";
   let score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
   awayTeam = goalsArr[0];
@@ -48,8 +49,9 @@ getGameResults = async function () {
     penaltyMissed
   };
 
-  console.log('gameDetails: ', gameDetails);
+  // console.log('gameDetails: ', gameDetails);
   await gamesCtlr.saveGame(gameDetails);
+  await genTimer(gameDetails);
 };
 
 getGameResults();

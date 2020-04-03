@@ -20,10 +20,28 @@ async function findOne(collection, filter = {}) {
   return result;
 }
 
-async function findOneAndUpdate(collection, targetProp, updateOp) {
+async function findLast(collection, filter = {}) {
+  let dataArr = [];
   const connection = await connect();
   const db = connection.db(dbName);
-  const result = await db.collection(collection).findOneAndUpdate(targetProp, updateOp);
+  await db
+    .collection(collection)
+    .find(filter)
+    .sort({
+      $natural: -1
+    })
+    .limit(1)
+    .forEach(doc => {
+      dataArr.push(doc);
+    });
+  await connection.close();
+  return dataArr[0];
+}
+
+async function findOneAndUpdate(collection, targetDoc, updateOp) {
+  const connection = await connect();
+  const db = connection.db(dbName);
+  const result = await db.collection(collection).findOneAndUpdate(targetDoc, updateOp);
   await connection.close();
   return result;
 }
@@ -44,7 +62,7 @@ async function find(collection, filter = {}, sort = {}) {
   return dataArr;
 }
 
-async function findTop(collection, filter, limit) {
+async function findTop(collection, filter = {}, limit = 0) {
   let dataArr = [];
   const connection = await connect();
   const db = connection.db(dbName);
@@ -79,6 +97,7 @@ async function insertOne(collection, docs) {
 module.exports = {
   findOne,
   findOneAndUpdate,
+  findLast,
   find,
   findTop,
   insertOne,

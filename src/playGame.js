@@ -5,11 +5,12 @@ const goalDetails = require('./getGoalTypes');
 const wasPenaltyMissed = require('./missedPenaltyCheck');
 const gamesCtlr = require('./../ctlrs/games');
 const genTimer = require('./genTimer');
+const updateTeamPoints = require('./stats/updateTeamPoints');
 
 getGameResults = async function () {
-  let awayTeam = "Hawthorne";
-  let homeTeam = "Aventura";
-  let score = await playGame.genScore(awayTeam, homeTeam);
+  let awayTeamName = "Janders";
+  let homeTeamName = "Westingdon";
+  let score = await playGame.genScore(awayTeamName, homeTeamName);
   let goalsArr = score.split(":");
   awayTeam = goalsArr[0];
   awayTeam = awayTeam.substring(0, awayTeam.length - 3);
@@ -22,7 +23,7 @@ getGameResults = async function () {
   const secondStr = goalsArr[1].trim();
   const homeTeamNumOfGoals = secondStr.charAt(secondStr.length - 1);
 
-  let args = {
+  let goalArgs = {
     awayTeam,
     awayTeamNumOfGoals,
     homeTeam,
@@ -31,10 +32,10 @@ getGameResults = async function () {
 
   const penaltyMissed = await wasPenaltyMissed();
 
-  const goalScorers = await getScorersForGoals(args);
+  const goalScorers = await getScorersForGoals(goalArgs);
 
-  const awayTeamGoalTimes = getTimesOfGoals(awayTeamNumOfGoals);
-  const homeTeamGoalTimes = getTimesOfGoals(homeTeamNumOfGoals);
+  const awayTeamGoalTimes = await getTimesOfGoals(awayTeamNumOfGoals);
+  const homeTeamGoalTimes = await getTimesOfGoals(homeTeamNumOfGoals);
 
   const awayTeamGoalTypes = await goalDetails.getTypesForGoals(awayTeamNumOfGoals);
   const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
@@ -44,16 +45,19 @@ getGameResults = async function () {
     homeTeam,
     score,
     goalScorers,
+    awayTeamNumOfGoals,
     awayTeamGoalTimes,
     awayTeamGoalTypes,
+    homeTeamNumOfGoals,
     homeTeamGoalTimes,
     homeTeamGoalTypes,
     penaltyMissed
   };
 
-  // console.log('gameDetails: ', gameDetails);
   await gamesCtlr.saveGame(gameDetails);
   await genTimer(gameDetails);
+  await updateTeamPoints(gameDetails);
+
 };
 
 getGameResults();

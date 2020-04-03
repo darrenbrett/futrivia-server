@@ -8,14 +8,10 @@ const genTimer = require('./genTimer');
 const updateTeamPoints = require('./stats/updateTeamPoints');
 
 getGameResults = async function () {
-  let awayTeamName = "Janders";
-  let homeTeamName = "Westingdon";
-  let score = await playGame.genScore(awayTeamName, homeTeamName);
+  const awayTeam = "Janders";
+  const homeTeam = "Westingdon";
+  const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
-  awayTeam = goalsArr[0];
-  awayTeam = awayTeam.substring(0, awayTeam.length - 3);
-  homeTeam = goalsArr[1];
-  homeTeam = homeTeam.substring(0, homeTeam.length - 2);
 
   const firstStr = goalsArr[0].trim();
   const awayTeamNumOfGoals = firstStr.charAt(firstStr.length - 1);

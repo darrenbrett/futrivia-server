@@ -40,7 +40,7 @@ async function getEligiblePlayers(team) {
 
 async function getAwayTeamScorers(args) {
   let awayTeamIterations = 0;
-  eligAwayPlayers = await getEligiblePlayers(args.awayTeam.trim());
+  eligAwayPlayers = await getEligiblePlayers(args.awayTeam);
   while (awayTeamIterations < args.awayTeamNumOfGoals) {
     let goalScorer = getScorer(eligAwayPlayers);
     awayTeamGoalScorers.push(goalScorer);
@@ -51,7 +51,7 @@ async function getAwayTeamScorers(args) {
 
 async function getHomeTeamScorers(args) {
   let homeTeamIterations = 0;
-  eligHomePlayers = await getEligiblePlayers(args.homeTeam.trim());
+  eligHomePlayers = await getEligiblePlayers(args.homeTeam);
   while (homeTeamIterations < args.homeTeamNumOfGoals) {
     let goalScorer = getScorer(eligHomePlayers);
     homeTeamGoalScorers.push(goalScorer);

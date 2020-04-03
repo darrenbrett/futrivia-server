@@ -10,7 +10,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
     console.log(error);
   }
 
-  const gameGoalDiff = awayTeamNumOfGoals - homeTeamNumOfGoals;
+  const awayGameGoalDiff = awayTeamNumOfGoals - homeTeamNumOfGoals;
 
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
@@ -34,7 +34,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
       }, {
         $set: {
           wins: awayTeamDoc.wins + 1,
-          goalDiff: awayTeamDoc.goalDiff + gameGoalDiff,
+          goalDiff: awayTeamDoc.goalDiff + awayGameGoalDiff,
           points: awayTeamDoc.points + 3,
         }
       });
@@ -50,7 +50,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
       }, {
         $set: {
           wins: awayTeamDoc.losses + 1,
-          goalDiff: awayTeamDoc.goalDiff + gameGoalDiff
+          goalDiff: awayTeamDoc.goalDiff + awayGameGoalDiff
         }
       });
     } catch (error) {
@@ -58,9 +58,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
-  console.log("AWAY TEAM UPDATE DONE!!");
   return;
-
 };
 
 const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfGoals) => {
@@ -73,7 +71,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
     console.log(error);
   }
 
-  const gameGoalDiff = homeTeamNumOfGoals - awayTeamNumOfGoals;
+  const homeGameGoalDiff = homeTeamNumOfGoals - awayTeamNumOfGoals;
 
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
@@ -97,7 +95,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
       }, {
         $set: {
           wins: homeTeamDoc.wins + 1,
-          goalDiff: homeTeamDoc.goalDiff + gameGoalDiff,
+          goalDiff: homeTeamDoc.goalDiff + homeGameGoalDiff,
           points: homeTeamDoc.points + 3,
         }
       });
@@ -113,7 +111,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
       }, {
         $set: {
           wins: homeTeamDoc.losses + 1,
-          goalDiff: homeTeamDoc.goalDiff + gameGoalDiff
+          goalDiff: homeTeamDoc.goalDiff + homeGameGoalDiff
         }
       });
     } catch (error) {
@@ -121,9 +119,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
-  console.log("HOME TEAM UPDATE DONE!!");
   return;
-
 };
 
 module.exports = async (data) => {

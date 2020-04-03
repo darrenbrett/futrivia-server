@@ -23,8 +23,8 @@ module.exports = [
   "Christopher Campbell",
   "Zayden Ortega",
   "Zayden Ortega",
-  "Matthew Mcgee",
-  "Matthew Mcgee",
+  "Matthew McGee",
+  "Matthew McGee",
   "Luis Diaz",
   "Emiliano Francisco",
 ];

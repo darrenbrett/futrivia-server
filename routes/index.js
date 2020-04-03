@@ -5,6 +5,7 @@ const Game = require("./../models/Game");
 const Team = require("./../models/Team");
 const Round = require("./../models/Round");
 
+// Get all players
 router.get("/api/players", async ctx => {
   await Player.find()
     .then(players => {
@@ -15,6 +16,7 @@ router.get("/api/players", async ctx => {
     });
 });
 
+// Get a player
 router.get("/api/player/:id", async (ctx) => {
   await Player.findOne()
     .then(player => {
@@ -41,7 +43,7 @@ router.get("/api/players/team/:team", async (ctx) => {
     });
 });
 
-// Get players by team
+// Get players by position
 router.get("/api/players/position/:position", async (ctx) => {
   const {
     position
@@ -116,6 +118,7 @@ router.get("/api/players/below/:num", async (ctx) => {
     });
 });
 
+// Get all games
 router.get("/api/games", async ctx => {
   await Game.find()
     .then(games => {
@@ -126,6 +129,7 @@ router.get("/api/games", async ctx => {
     });
 });
 
+// Get a game
 router.get("/api/game/:id", async (ctx) => {
   await Game.findOne()
     .then(game => {
@@ -136,6 +140,18 @@ router.get("/api/game/:id", async (ctx) => {
     });
 });
 
+// Get all games by round
+router.get("/api/games/seasonRound", async ctx => {
+  await Game.find()
+    .then(games => {
+      ctx.body = games;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get all teams
 router.get("/api/teams", async ctx => {
   await Team.find()
     .then(teams => {
@@ -146,6 +162,7 @@ router.get("/api/teams", async ctx => {
     });
 });
 
+// Get a team
 router.get("/api/team/:id", async (ctx) => {
   await Team.findOne()
     .then(team => {
@@ -156,6 +173,7 @@ router.get("/api/team/:id", async (ctx) => {
     });
 });
 
+// Get all rounds
 router.get("/api/rounds", async ctx => {
   await Round.find()
     .then(rounds => {
@@ -166,6 +184,7 @@ router.get("/api/rounds", async ctx => {
     });
 });
 
+// Get a round
 router.get("/api/round/:id", async (ctx) => {
   await Round.findOne()
     .then(round => {

@@ -8,8 +8,9 @@ const genTimer = require('./genTimer');
 const updateTeamPoints = require('./stats/updateTeamPoints');
 
 getGameResults = async function () {
-  const awayTeam = "Janders";
-  const homeTeam = "Westingdon";
+  const seasonRound = "20-5";
+  const awayTeam = "Creighton";
+  const homeTeam = "Aventura";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
 
@@ -37,6 +38,7 @@ getGameResults = async function () {
   const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
 
   const gameDetails = {
+    seasonRound,
     awayTeam,
     homeTeam,
     score,

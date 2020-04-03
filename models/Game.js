@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
+  seasonRound: {
+    type: String
+  },
   score: {
     type: String
   },

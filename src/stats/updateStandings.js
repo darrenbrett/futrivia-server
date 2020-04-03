@@ -38,3 +38,5 @@ const getConferenceStandings = async () => {
 };
 
 getConferenceStandings();
+
+module.exports = getConferenceStandings;

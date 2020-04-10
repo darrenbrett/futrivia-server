@@ -62,7 +62,7 @@ module.exports = (gameDetails) => {
       console.log(gameDetails);
       return;
     }
-    timerId = setTimeout(tick, 2000);
+    timerId = setTimeout(tick, 3000);
   });
 
 };

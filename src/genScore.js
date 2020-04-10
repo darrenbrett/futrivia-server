@@ -18,7 +18,7 @@ function getHomeXFactor() {
 let homeTeamRating = 0;
 let awayTeamRating = 0;
 
-const genScore = async function(awayTeam, homeTeam) {
+const genScore = async function (awayTeam, homeTeam) {
   // loop through and get homeTeam and awayTeam ratings
   for (let teamStrength of teamStrengths) {
     if (teamStrength.name === homeTeam) {
@@ -85,4 +85,3 @@ const genScore = async function(awayTeam, homeTeam) {
 module.exports = {
   genScore
 };
-

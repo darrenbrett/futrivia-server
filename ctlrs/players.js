@@ -90,6 +90,6 @@ const getPlayersPerTeam = async () => {
 };
 
 // getPlayer();
-getPremiumPlayers();
+// getPremiumPlayers();
 // getTop10();
 // getPlayersPerTeam();

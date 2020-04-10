@@ -2,8 +2,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PlayerSchema = new Schema({
+  fullName: {
+    type: String
+  },
+  name: {
+    first: {
+      type: String
+    },
+    last: {
+      type: String
+    }
+  },
   speed: {
     type: Number
+  },
+  goals: {
+    year: {
+      2020: {
+        type: Number,
+        default: 0
+      }
+    }
   },
   age: {
     type: Number
@@ -32,24 +51,14 @@ const PlayerSchema = new Schema({
   currentTeam: {
     type: String
   },
-  formerTeams: [
-    {
-      type: String
-    }
-  ],
+  formerTeams: [{
+    type: String
+  }],
   active: {
     type: Boolean
   },
   position: {
     type: String
-  },
-  name: {
-    first: {
-      type: String
-    },
-    last: {
-      type: String
-    }
   }
 });
 

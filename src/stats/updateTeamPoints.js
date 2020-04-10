@@ -12,6 +12,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
 
   const awayGameGoalDiff = awayTeamNumOfGoals - homeTeamNumOfGoals;
 
+  // Tie game result
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {
@@ -27,6 +28,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
+  // Away team win
   if (awayTeamNumOfGoals > homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {
@@ -43,6 +45,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
+  // Away team loss
   if (awayTeamNumOfGoals < homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {
@@ -73,6 +76,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
 
   const homeGameGoalDiff = homeTeamNumOfGoals - awayTeamNumOfGoals;
 
+  // Tie game result
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {
@@ -88,6 +92,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
+  // Home team win
   if (awayTeamNumOfGoals < homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {
@@ -104,6 +109,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
     }
   }
 
+  // Home team loss
   if (awayTeamNumOfGoals > homeTeamNumOfGoals) {
     try {
       await queryHandler.findOneAndUpdate("pointTotals", {

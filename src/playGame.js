@@ -6,11 +6,12 @@ const wasPenaltyMissed = require('./missedPenaltyCheck');
 const gamesCtlr = require('./../ctlrs/games');
 const genTimer = require('./genTimer');
 const updateTeamPoints = require('./stats/updateTeamPoints');
+const updatePlayerGoals = require('./stats/updatePlayerGoals');
 
-getGameResults = async function () {
+const getGameResults = async function () {
   const seasonRound = "20-5";
-  const awayTeam = "Creighton";
-  const homeTeam = "Aventura";
+  const awayTeam = "Argonia";
+  const homeTeam = "Larson";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
 
@@ -55,7 +56,7 @@ getGameResults = async function () {
   await gamesCtlr.saveGame(gameDetails);
   await genTimer(gameDetails);
   await updateTeamPoints(gameDetails);
-
+  await updatePlayerGoals(gameDetails);
 };
 
 getGameResults();

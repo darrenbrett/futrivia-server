@@ -1,15 +1,30 @@
 const Router = require("koa-router");
 const router = new Router();
+const bodyParser = require("koa-body");
+
 const Player = require("./../models/Player");
-const Game = require("./../models/Game");
 const Team = require("./../models/Team");
+const Game = require("./../models/Game");
 const Round = require("./../models/Round");
+
+// Player Routes ****************************
 
 // Get all players
 router.get("/api/players", async ctx => {
   await Player.find()
     .then(players => {
       ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get players by name
+router.post("/api/player/name", async (ctx) => {
+  await Player.findOne(ctx.request.body)
+    .then(player => {
+      ctx.body = player;
     })
     .catch(err => {
       ctx.body = "Error: " + err;
@@ -97,7 +112,6 @@ router.get("/api/players/above/:num", async (ctx) => {
     });
 });
 
-
 // Get player by < aggScore
 router.get("/api/players/below/:num", async (ctx) => {
   const {
@@ -117,6 +131,26 @@ router.get("/api/players/below/:num", async (ctx) => {
       ctx.body = "Error: " + err;
     });
 });
+
+// Get top scorers
+router.get("/api/players/scorers", async (ctx) => {
+  console.log(ctx.params);
+  await Player.find({
+      "goals.year": {
+        $exists: true
+      }
+    }).sort({
+      "goals.year": -1
+    })
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Game Routes ****************************
 
 // Get all games
 router.get("/api/games", async ctx => {
@@ -151,27 +185,7 @@ router.get("/api/games/seasonRound", async ctx => {
     });
 });
 
-// Get all teams
-router.get("/api/teams", async ctx => {
-  await Team.find()
-    .then(teams => {
-      ctx.body = teams;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
-});
-
-// Get a team
-router.get("/api/team/:id", async (ctx) => {
-  await Team.findOne()
-    .then(team => {
-      ctx.body = team;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
-});
+// Round Routes ****************************
 
 // Get all rounds
 router.get("/api/rounds", async ctx => {
@@ -195,5 +209,28 @@ router.get("/api/round/:id", async (ctx) => {
     });
 });
 
+// Team Routes ****************************
+
+// Get all teams
+router.get("/api/teams", async ctx => {
+  await Team.find()
+    .then(teams => {
+      ctx.body = teams;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get a team
+router.get("/api/team/:id", async (ctx) => {
+  await Team.findOne()
+    .then(team => {
+      ctx.body = team;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
 
 module.exports = router;

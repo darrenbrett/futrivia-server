@@ -1,6 +1,5 @@
 const Router = require("koa-router");
 const router = new Router();
-const bodyParser = require("koa-body");
 
 const Player = require("./../models/Player");
 const Team = require("./../models/Team");
@@ -21,7 +20,7 @@ router.get("/api/players", async ctx => {
 });
 
 // Get players by name
-router.post("/api/player/name", async (ctx) => {
+router.post("/api/player/name", async ctx => {
   await Player.findOne(ctx.request.body)
     .then(player => {
       ctx.body = player;
@@ -32,7 +31,7 @@ router.post("/api/player/name", async (ctx) => {
 });
 
 // Get a player
-router.get("/api/player/:id", async (ctx) => {
+router.get("/api/player/:id", async ctx => {
   await Player.findOne()
     .then(player => {
       ctx.body = player;
@@ -43,7 +42,7 @@ router.get("/api/player/:id", async (ctx) => {
 });
 
 // Get players by team
-router.get("/api/players/team/:team", async (ctx) => {
+router.get("/api/players/team/:team", async ctx => {
   const {
     team
   } = ctx.params;
@@ -59,7 +58,7 @@ router.get("/api/players/team/:team", async (ctx) => {
 });
 
 // Get players by position
-router.get("/api/players/position/:position", async (ctx) => {
+router.get("/api/players/position/:position", async ctx => {
   const {
     position
   } = ctx.params;
@@ -75,7 +74,7 @@ router.get("/api/players/position/:position", async (ctx) => {
 });
 
 // Get elite players - aggScore > 9
-router.get("/api/players/elite", async (ctx) => {
+router.get("/api/players/elite", async ctx => {
   console.log(ctx.params);
   await Player.find({
       aggScore: {
@@ -93,7 +92,7 @@ router.get("/api/players/elite", async (ctx) => {
 });
 
 // Get player by > aggScore
-router.get("/api/players/above/:num", async (ctx) => {
+router.get("/api/players/above/:num", async ctx => {
   const {
     num
   } = ctx.params;
@@ -113,7 +112,7 @@ router.get("/api/players/above/:num", async (ctx) => {
 });
 
 // Get player by < aggScore
-router.get("/api/players/below/:num", async (ctx) => {
+router.get("/api/players/below/:num", async ctx => {
   const {
     num
   } = ctx.params;
@@ -133,7 +132,7 @@ router.get("/api/players/below/:num", async (ctx) => {
 });
 
 // Get top scorers
-router.get("/api/players/scorers", async (ctx) => {
+router.get("/api/players/scorers", async ctx => {
   console.log(ctx.params);
   await Player.find({
       "goals.year": {
@@ -164,7 +163,7 @@ router.get("/api/games", async ctx => {
 });
 
 // Get a game
-router.get("/api/game/:id", async (ctx) => {
+router.get("/api/game/:id", async ctx => {
   await Game.findOne()
     .then(game => {
       ctx.body = game;
@@ -199,7 +198,7 @@ router.get("/api/rounds", async ctx => {
 });
 
 // Get a round
-router.get("/api/round/:id", async (ctx) => {
+router.get("/api/round/:id", async ctx => {
   await Round.findOne()
     .then(round => {
       ctx.body = round;
@@ -223,7 +222,7 @@ router.get("/api/teams", async ctx => {
 });
 
 // Get a team
-router.get("/api/team/:id", async (ctx) => {
+router.get("/api/team/:id", async ctx => {
   await Team.findOne()
     .then(team => {
       ctx.body = team;

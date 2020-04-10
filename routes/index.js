@@ -19,6 +19,17 @@ router.get("/api/players", async ctx => {
     });
 });
 
+// Get filtered players
+router.post("/api/players/filter", async ctx => {
+  await Player.find(ctx.request.body)
+    .then(players => {
+      ctx.body = players;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
 // Get players by name
 router.post("/api/player/name", async ctx => {
   await Player.findOne(ctx.request.body)

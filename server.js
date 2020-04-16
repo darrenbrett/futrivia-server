@@ -1,5 +1,7 @@
 const Koa = require("koa");
+const cors = require("@koa/cors");
 const app = new Koa();
+app.use(cors());
 const bodyParser = require("koa-body");
 const mongoose = require("mongoose");
 
@@ -11,7 +13,7 @@ const port = "3000";
 
 mongoose.connect("mongodb://localhost:27017/evpsl", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 app.listen(port, () => console.log(`Server started. Listening on port ${port}...`));

@@ -62,14 +62,14 @@ async function find(collection, filter = {}, sort = {}) {
   return dataArr;
 }
 
-async function findTop(collection, filter = {}, limit = 0) {
+async function findTop(collection, filter = {}, sort = {}, limit = 0) {
   let dataArr = [];
   const connection = await connect();
   const db = connection.db(dbName);
   await db
     .collection(collection)
-    .find()
-    .sort(filter)
+    .find(filter)
+    .sort(sort)
     .limit(limit)
     .forEach(doc => {
       dataArr.push(doc);

@@ -5,6 +5,9 @@ const TeamSchema = new Schema({
   createdOn: {
     type: Date
   },
+  smLogoUrl: {
+    type: String
+  },
   firstSeason: {
     type: String
   },

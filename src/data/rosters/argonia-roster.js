@@ -26,8 +26,6 @@ module.exports = [
   "Nelson Moore",
   "Nelson Moore",
   "Brian Oliver",
-  "Brian Oliver",
-  "Izayah Snider",
   "Izayah Snider",
   "Reuben Zimmerman"
 ];

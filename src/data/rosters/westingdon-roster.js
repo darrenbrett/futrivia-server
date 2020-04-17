@@ -18,6 +18,7 @@ module.exports = [
   "Juan Ramos",
   "Adrien Good",
   "Adrien Good",
+  "Adrien Good",
   "Austin Burton",
   "Austin Burton",
   "Christopher Campbell",

@@ -8,6 +8,9 @@ const TeamSchema = new Schema({
   smLogoUrl: {
     type: String
   },
+  coach: {
+    type: String
+  },
   firstSeason: {
     type: String
   },

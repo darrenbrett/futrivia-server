@@ -8,6 +8,8 @@ module.exports = [
   "Karter Klein",
   "Karter Klein",
   "Karter Klein",
+  "Karter Klein",
+  "Manny Estrada",
   "Manny Estrada",
   "Manny Estrada",
   "Manny Estrada",

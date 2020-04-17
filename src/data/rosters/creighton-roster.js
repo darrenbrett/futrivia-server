@@ -25,6 +25,7 @@ module.exports = [
   "Stephen Strong",
   "Preston Hooper",
   "Edward Daugherty",
+  "Edward Daugherty",
   "Eugene Bowman",
   "Marlon Pittman"
 ];

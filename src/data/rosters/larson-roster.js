@@ -23,10 +23,8 @@ module.exports = [
   "Simon Morgan",
   "Simon Morgan",
   "Cash Vazquez",
-  "Cash Vazquez",
   "Zayne Barker",
   "Zayne Barker",
-  "Callum Bentley",
   "Callum Bentley",
   "Dustin Browning",
   "Marco Yates"

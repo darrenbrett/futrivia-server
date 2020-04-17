@@ -221,22 +221,27 @@ router.get("/api/round/:id", async ctx => {
 
 // Team Routes ****************************
 
-// Get all teams
-router.get("/api/teams", async ctx => {
-  await Team.find()
-    .then(teams => {
-      ctx.body = teams;
+// Get a team by location
+router.get("/api/teams/:location", async ctx => {
+  const {
+    location
+  } = ctx.params;
+  await Team.findOne({
+      "name.location": location
+    })
+    .then(team => {
+      ctx.body = team;
     })
     .catch(err => {
       ctx.body = "Error: " + err;
     });
 });
 
-// Get a team
-router.get("/api/team/:id", async ctx => {
-  await Team.findOne()
-    .then(team => {
-      ctx.body = team;
+// Get all teams
+router.get("/api/teams", async ctx => {
+  await Team.find()
+    .then(teams => {
+      ctx.body = teams;
     })
     .catch(err => {
       ctx.body = "Error: " + err;

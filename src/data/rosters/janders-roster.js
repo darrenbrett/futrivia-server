@@ -26,6 +26,6 @@ module.exports = [
   "Emory Philips",
   "Royce Hubbard",
   "Brent Holman",
-  "Truman McClain",
+  "Truman Mclean",
   "Julian Sheppard"
 ];

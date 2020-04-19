@@ -248,4 +248,50 @@ router.get("/api/teams", async ctx => {
     });
 });
 
+// Standings Routes *******************
+
+// Get eastern conference standings
+router.get("/api/standings/east", async ctx => {
+  console.log('west running...');
+  await Team.find({
+      conference: "Eastern"
+    }).sort({
+      "season.points": -1
+    })
+    .then(teams => {
+      ctx.body = teams;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get western conference standings
+router.get("/api/standings/west", async ctx => {
+  await Team.find({
+      conference: "Western"
+    }).sort({
+      "season.points": -1
+    })
+    .then(teams => {
+      ctx.body = teams;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+// Get overall standings
+router.get("/api/standings/overall", async ctx => {
+  await Team.find().sort({
+      "season.points": -1
+    })
+    .then(teams => {
+      ctx.body = teams;
+    })
+    .catch(err => {
+      ctx.body = "Error: " + err;
+    });
+});
+
 module.exports = router;

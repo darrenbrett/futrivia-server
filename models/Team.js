@@ -8,6 +8,32 @@ const TeamSchema = new Schema({
   smLogoUrl: {
     type: String
   },
+  conference: {
+    type: String
+  },
+  fullName: {
+    type: String
+  },
+  season: {
+    wins: {
+      type: Number
+    },
+    losses: {
+      type: Number
+    },
+    ties: {
+      type: Number
+    },
+    goalDiff: {
+      type: Number
+    },
+    points: {
+      type: Number
+    }
+  },
+  lgLogoUrl: {
+    type: String
+  },
   coach: {
     type: String
   },

@@ -116,7 +116,7 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
         team: homeTeam
       }, {
         $set: {
-          wins: homeTeamDoc.losses + 1,
+          losses: homeTeamDoc.losses + 1,
           goalDiff: homeTeamDoc.goalDiff + homeGameGoalDiff
         }
       });

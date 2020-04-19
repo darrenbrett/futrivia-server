@@ -17,7 +17,10 @@ let awayTeamGoalScorers = [];
 let homeTeamGoalScorers = [];
 
 function getScorer(eligPlayers) {
-  if (eligPlayers.length) {
+  if (!eligPlayers || eligPlayers.length < 1) {
+    console.log('Missing eligible players...');
+  }
+  if (eligPlayers && eligPlayers.length > 0) {
     const scorer = eligPlayers[Math.floor(Math.random() * eligPlayers.length)];
     return scorer;
   }

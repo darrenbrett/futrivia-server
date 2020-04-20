@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
@@ -14,6 +14,10 @@ const TeamSchema = new Schema({
   fullName: {
     type: String
   },
+  roster: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "players"
+  }],
   season: {
     wins: {
       type: Number

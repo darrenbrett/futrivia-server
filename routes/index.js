@@ -229,6 +229,7 @@ router.get("/api/teams/:location", async ctx => {
   await Team.findOne({
       "name.location": location
     })
+    .populate("roster", ["fullName", "position", "goals.year.2020"])
     .then(team => {
       ctx.body = team;
     })
@@ -252,12 +253,12 @@ router.get("/api/teams", async ctx => {
 
 // Get eastern conference standings
 router.get("/api/standings/east", async ctx => {
-  console.log('west running...');
   await Team.find({
       conference: "Eastern"
     }).sort({
       "season.points": -1
     })
+    .populate("roster", ["fullName", "position"])
     .then(teams => {
       ctx.body = teams;
     })
@@ -273,6 +274,7 @@ router.get("/api/standings/west", async ctx => {
     }).sort({
       "season.points": -1
     })
+    .populate("roster", ["fullName", "position"])
     .then(teams => {
       ctx.body = teams;
     })
@@ -286,6 +288,7 @@ router.get("/api/standings/overall", async ctx => {
   await Team.find().sort({
       "season.points": -1
     })
+    .populate("roster", ["fullName", "position"])
     .then(teams => {
       ctx.body = teams;
     })

@@ -29,13 +29,14 @@ const getTeamPlayers = async (team) => {
 };
 
 const genTeamRoster = async (team) => {
-  const players = await getTeamPlayers(team);
+  let players = await getTeamPlayers(team);
+  let playerIds = players.map(p => p._id);
   const filter = {
     'name.location': team
   };
   const updateOp = {
     $set: {
-      playerRoster: players
+      roster: playerIds
     }
   };
   console.log(`Populating ${team} roster...`);

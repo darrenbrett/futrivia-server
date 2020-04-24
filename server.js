@@ -9,7 +9,13 @@ const routing = require("./routes");
 
 app.use(bodyParser());
 app.use(routing.routes());
+// app.use(router.routes());
+// app.use("/user", userRoutes);
 const port = "3000";
+
+app.use((ctx) => {
+  ctx.body = `Request Body: ${JSON.stringify(ctx.request.body)}`;
+});
 
 mongoose.connect("mongodb://localhost:27017/evpsl", {
   useNewUrlParser: true,

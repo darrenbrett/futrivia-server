@@ -1,15 +1,93 @@
 const queryHandler = require("./../utils/queryHandler");
+const Player = require('./../models/Player');
 
-const getPlayer = async (filter) => {
-  let player;
+// Get all players
+exports.get = () => {
   try {
-    player = await queryHandler.findOne("players", filter);
-    console.log("player: ", player);
+    return Player.find();
   } catch (error) {
+    console.log('Error in players get function');
     console.log(error);
   }
-  return player;
 };
+
+// Get players by team
+exports.getPlayersPerTeam = (team) => {
+  try {
+    return Player.find({
+      currentTeam: team
+    });
+  } catch (error) {
+    console.log('Error in getTeamPlayers function');
+    console.log(error);
+  }
+};
+
+// Get players by position
+exports.getPlayersByPosition = (position) => {
+  try {
+    return Player.find({
+      position
+    });
+  } catch (error) {
+    console.log('Error in getPlayersByPosition() function');
+    console.log(error);
+  }
+};
+
+// Get elite players - aggScore > 9
+exports.getElitePlayers = () => {
+  try {
+    return Player.find({
+      aggScore: {
+        $gt: 9
+      }
+    }).sort({
+      aggScore: -1
+    });
+  } catch (error) {
+    console.log('Error in getElitePlayers() function');
+    console.log(error);
+  }
+};
+
+// Get players agg above
+exports.getPlayersAggAbove = (num) => {
+  try {
+    return Player.find({
+      aggScore: {
+        $gt: parseFloat(num)
+      }
+    }).sort({
+      aggScore: -1
+    });
+  } catch (error) {
+    console.log('Error in getPlayersAggAbove()');
+    console.log(error);
+  }
+};
+
+// Get players agg below
+exports.getPlayersAggBelow = (num) => {
+  try {
+    return Player.find({
+      aggScore: {
+        $lt: parseFloat(num)
+      }
+    }).sort({
+      aggScore: -1
+    });
+  } catch (error) {
+    console.log('Error in getPlayersAggAbove()');
+    console.log(error);
+  }
+};
+
+
+
+
+
+
 
 const getPremiumPlayers = async () => {
   let players = [];

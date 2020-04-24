@@ -16,6 +16,18 @@ const GameSchema = new Schema({
       type: String
     }]
   },
+  awayTeam: {
+    type: String
+  },
+  awayTeamLogoUrl: {
+    type: String
+  },
+  homeTeam: {
+    type: String
+  },
+  homeTeamLogoUrl: {
+    type: String
+  },
   awayTeamGoalTimes: [{
     type: Number
   }],

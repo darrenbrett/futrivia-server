@@ -7,6 +7,7 @@ const gamesCtlr = require('./../ctlrs/games');
 const genTimer = require('./genTimer');
 const updateTeamPoints = require('./stats/updateTeamPoints');
 const updatePlayerGoals = require('./stats/updatePlayerGoals');
+const getTeamLogo = require('./getTeamLogo');
 
 const getGameResults = async function () {
   const seasonRound = "20-7";
@@ -14,6 +15,9 @@ const getGameResults = async function () {
   const homeTeam = "Sanviago";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
+
+  const awayTeamLogoUrl = await getTeamLogo(awayTeam);
+  const homeTeamLogoUrl = await getTeamLogo(homeTeam);
 
   const firstStr = goalsArr[0].trim();
   const awayTeamNumOfGoals = firstStr.charAt(firstStr.length - 1);
@@ -41,7 +45,9 @@ const getGameResults = async function () {
   const gameDetails = {
     seasonRound,
     awayTeam,
+    awayTeamLogoUrl,
     homeTeam,
+    homeTeamLogoUrl,
     score,
     goalScorers,
     awayTeamNumOfGoals,

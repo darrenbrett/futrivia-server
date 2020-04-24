@@ -1,161 +1,137 @@
 const Router = require("koa-router");
 const router = new Router();
 
-const Player = require("./../models/Player");
-const Team = require("./../models/Team");
+const teamsCtrl = require("./../ctlrs/teams");
+const playersCtlr = require("./../ctlrs/players");
+const usersCtlr = require("./../ctlrs/users");
+
 const Game = require("./../models/Game");
 const Round = require("./../models/Round");
+
+// User Routes ****************************
+
+// Get all users
+router.get("/api/users", async (ctx) => {
+  const users = await usersCtlr.get();
+  ctx.body = users;
+});
+
+// Create a new user
+router.post("/api/users/signup", async (ctx) => {
+  const username = ctx.request.body.username;
+  const password = ctx.request.body.password;
+  let newUserResponse = await usersCtlr.create(username, password);
+  if (newUserResponse === "duplicate") {
+    ctx.body = {
+      message: "This username already exists",
+      status: 409,
+    };
+  } else {
+    ctx.body = {
+      message: "New user created successfully!",
+      status: 200,
+    };
+  }
+});
 
 // Player Routes ****************************
 
 // Get all players
-router.get("/api/players", async ctx => {
-  await Player.find()
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+router.get("/api/players", async (ctx) => {
+  const players = await playersCtlr.get();
+  ctx.body = players;
 });
 
 // Get filtered players
-router.post("/api/players/filter", async ctx => {
+router.post("/api/players/filter", async (ctx) => {
   await Player.find(ctx.request.body)
-    .then(players => {
+    .then((players) => {
       ctx.body = players;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get players by name
-router.post("/api/player/name", async ctx => {
+router.post("/api/player/name", async (ctx) => {
   await Player.findOne(ctx.request.body)
-    .then(player => {
+    .then((player) => {
       ctx.body = player;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get a player
-router.get("/api/player/:id", async ctx => {
+router.get("/api/player/:id", async (ctx) => {
   await Player.findOne()
-    .then(player => {
+    .then((player) => {
       ctx.body = player;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get players by team
-router.get("/api/players/team/:team", async ctx => {
+router.get("/api/players/team/:team", async (ctx) => {
   const {
     team
   } = ctx.params;
-  await Player.find({
-      currentTeam: team
-    })
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+  const teamPlayers = await playersCtlr.getPlayersPerTeam(team);
+  ctx.body = teamPlayers;
 });
 
 // Get players by position
-router.get("/api/players/position/:position", async ctx => {
+router.get("/api/players/position/:position", async (ctx) => {
   const {
     position
   } = ctx.params;
-  await Player.find({
-      position: position
-    })
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+  const players = await playersCtlr.getPlayersByPosition(position);
+  ctx.body = players;
 });
 
 // Get elite players - aggScore > 9
-router.get("/api/players/elite", async ctx => {
-  console.log(ctx.params);
-  await Player.find({
-      aggScore: {
-        $gt: 9
-      }
-    }).sort({
-      aggScore: -1
-    })
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+router.get("/api/players/elite", async (ctx) => {
+  const elitePlayers = await playersCtlr.getElitePlayers();
+  ctx.body = elitePlayers;
 });
 
 // Get player by > aggScore
-router.get("/api/players/above/:num", async ctx => {
+router.get("/api/players/above/:num", async (ctx) => {
   const {
     num
   } = ctx.params;
-  await Player.find({
-      aggScore: {
-        $gt: parseFloat(num)
-      }
-    }).sort({
-      aggScore: -1
-    })
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+  const playersAboveNum = await playersCtlr.getPlayersAggAbove(num);
+  ctx.body = playersAboveNum;
 });
 
 // Get player by < aggScore
-router.get("/api/players/below/:num", async ctx => {
+router.get("/api/players/below/:num", async (ctx) => {
   const {
     num
   } = ctx.params;
-  await Player.find({
-      aggScore: {
-        $lt: parseFloat(num)
-      }
-    }).sort({
-      aggScore: -1
-    })
-    .then(players => {
-      ctx.body = players;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+  const playersBelowNum = await playersCtlr.getPlayersAggBelow(num);
+  ctx.body = playersBelowNum;
 });
 
 // Get top scorers
-router.get("/api/players/scorers", async ctx => {
+router.get("/api/players/scorers", async (ctx) => {
   console.log(ctx.params);
   await Player.find({
       "goals.year": {
-        $exists: true
-      }
-    }).sort({
-      "goals.year": -1
+        $exists: true,
+      },
     })
-    .then(players => {
+    .sort({
+      "goals.year": -1,
+    })
+    .then((players) => {
       ctx.body = players;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
@@ -163,34 +139,48 @@ router.get("/api/players/scorers", async ctx => {
 // Game Routes ****************************
 
 // Get all games
-router.get("/api/games", async ctx => {
+router.get("/api/games", async (ctx) => {
   await Game.find()
-    .then(games => {
+    .then((games) => {
       ctx.body = games;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get a game
-router.get("/api/game/:id", async ctx => {
+router.get("/api/game/:id", async (ctx) => {
   await Game.findOne()
-    .then(game => {
+    .then((game) => {
       ctx.body = game;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get all games by round
-router.get("/api/games/seasonRound", async ctx => {
+router.get("/api/games/seasonRound", async (ctx) => {
   await Game.find()
-    .then(games => {
+    .then((games) => {
       ctx.body = games;
     })
-    .catch(err => {
+    .catch((err) => {
+      ctx.body = "Error: " + err;
+    });
+});
+
+router.get("/api/games/latest", async (ctx) => {
+  await Game.find()
+    .sort({
+      $natural: -1,
+    })
+    .limit(6)
+    .then((games) => {
+      ctx.body = games;
+    })
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
@@ -198,101 +188,100 @@ router.get("/api/games/seasonRound", async ctx => {
 // Round Routes ****************************
 
 // Get all rounds
-router.get("/api/rounds", async ctx => {
+router.get("/api/rounds", async (ctx) => {
   await Round.find()
-    .then(rounds => {
+    .then((rounds) => {
       ctx.body = rounds;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get a round
-router.get("/api/round/:id", async ctx => {
+router.get("/api/round/:id", async (ctx) => {
   await Round.findOne()
-    .then(round => {
+    .then((round) => {
       ctx.body = round;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Team Routes ****************************
 
-// Get a team by location
-router.get("/api/teams/:location", async ctx => {
-  const {
-    location
-  } = ctx.params;
-  await Team.findOne({
-      "name.location": location
-    })
-    .populate("roster", ["fullName", "position", "goals.year.2020"])
-    .then(team => {
-      ctx.body = team;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+// Get team small logos
+router.get("/api/teams/logos", async (ctx) => {
+  const logos = await teamsCtrl.getTeamLogos();
+  ctx.body = logos;
 });
 
 // Get all teams
-router.get("/api/teams", async ctx => {
-  await Team.find()
-    .then(teams => {
-      ctx.body = teams;
-    })
-    .catch(err => {
-      ctx.body = "Error: " + err;
-    });
+router.get("/api/teams", async (ctx) => {
+  const teams = await teamsCtrl.get();
+  ctx.body = teams;
+});
+
+// Get team by location
+router.get("/api/teams/:location", async (ctx) => {
+  const {
+    location
+  } = ctx.params;
+  const team = await teamsCtrl.getByLocation(location);
+  ctx.body = team;
 });
 
 // Standings Routes *******************
 
 // Get eastern conference standings
-router.get("/api/standings/east", async ctx => {
+router.get("/api/standings/east", async (ctx) => {
   await Team.find({
-      conference: "Eastern"
-    }).sort({
-      "season.points": -1
+      conference: "Eastern",
+    })
+    .sort({
+      "season.points": -1,
+      "season.goalDiff": -1,
     })
     .populate("roster", ["fullName", "position"])
-    .then(teams => {
+    .then((teams) => {
       ctx.body = teams;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get western conference standings
-router.get("/api/standings/west", async ctx => {
+router.get("/api/standings/west", async (ctx) => {
   await Team.find({
-      conference: "Western"
-    }).sort({
-      "season.points": -1
+      conference: "Western",
+    })
+    .sort({
+      "season.points": -1,
+      "season.goalDiff": -1,
     })
     .populate("roster", ["fullName", "position"])
-    .then(teams => {
+    .then((teams) => {
       ctx.body = teams;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });
 
 // Get overall standings
-router.get("/api/standings/overall", async ctx => {
-  await Team.find().sort({
-      "season.points": -1
+router.get("/api/standings/overall", async (ctx) => {
+  await Team.find()
+    .sort({
+      "season.points": -1,
+      "season.goalDiff": -1,
     })
     .populate("roster", ["fullName", "position"])
-    .then(teams => {
+    .then((teams) => {
       ctx.body = teams;
     })
-    .catch(err => {
+    .catch((err) => {
       ctx.body = "Error: " + err;
     });
 });

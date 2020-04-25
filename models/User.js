@@ -11,11 +11,8 @@ const UserSchema = new Schema({
   type: {
     type: Number,
   },
-  roles: [
-    {
-      type: String,
-    },
-  ],
+  tokens: [],
+  roles: []
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

@@ -17,7 +17,7 @@ router.get("/api/users", async (ctx) => {
 });
 
 // Create a new user
-router.post("/api/users/signup", async (ctx) => {
+router.post("/api/users/signup", async ctx => {
   const username = ctx.request.body.username;
   const password = ctx.request.body.password;
   let newUserResponse = await usersCtlr.create(username, password);
@@ -32,6 +32,14 @@ router.post("/api/users/signup", async (ctx) => {
       status: 200,
     };
   }
+});
+
+// Login a user
+router.post("/api/users/login", async ctx => {
+  const username = ctx.request.body.username;
+  const password = ctx.request.body.password;
+  let loginResponse = await usersCtlr.login(username, password);
+  ctx.body = loginResponse;
 });
 
 // Player Routes ****************************

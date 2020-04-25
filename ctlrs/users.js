@@ -1,6 +1,8 @@
 const User = require("./../models/User");
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+
+const verificationKey = require("./../configuration/authConfig");
 
 // Get all users
 exports.get = () => {
@@ -14,7 +16,9 @@ exports.get = () => {
 
 // Create a new user with hashed password
 exports.create = async (username, password) => {
-  const duplicateUsernameCheck = await User.findOne({ username: username });
+  const duplicateUsernameCheck = await User.findOne({
+    username: username,
+  });
   if (duplicateUsernameCheck) {
     const duplicateUsernameMessage = "duplicate";
     return duplicateUsernameMessage;
@@ -33,5 +37,40 @@ exports.create = async (username, password) => {
         console.log("createdUser: ", createdUser);
       }
     });
+  }
+};
+
+// Login a user
+exports.login = async (username, password) => {
+  const userToCheck = await User.findOne({
+    username: username,
+  });
+  if (!userToCheck) {
+    const message = "Auth failed";
+    return message;
+  }
+  const hashedPassword = userToCheck.password;
+  const match = await bcrypt.compare(password, hashedPassword);
+  if (match) {
+    const token = jwt.sign({
+        username: userToCheck.username
+      },
+      verificationKey, {
+        expiresIn: 86400
+      }
+    );
+    await userToCheck.tokens.push({
+      token: token
+    });
+    userToCheck.save();
+    console.log('userToCheck: ', userToCheck);
+    return {
+      user: userToCheck,
+      token: token
+    };
+  } else {
+    console.log("Passwords did not match!");
+    const message = "Auth failed";
+    return message;
   }
 };

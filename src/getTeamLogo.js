@@ -1,14 +1,17 @@
+const queryHandler = require('./../utils/queryHandler');
+
 module.exports = getTeamLogo = async (team) => {
+  let teamDoc;
   let teamLogoUrl;
   const filter = {
     'name.location': team,
   };
   try {
-    teamLogoUrl = await queryHandler.find('team', filter, {
-      smLogoUrl: 1
-    });
+    teamDoc = await queryHandler.findOne('teams', filter);
   } catch (error) {
     console.log(error);
   }
+
+  teamLogoUrl = teamDoc.smLogoUrl;
   return teamLogoUrl;
 };

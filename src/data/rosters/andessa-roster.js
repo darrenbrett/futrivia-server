@@ -25,7 +25,7 @@ module.exports = [
   "Billy Craig",
   "Luis Guerra",
   "Andreas Valentine",
-  "Malachai Norris",
+  "Malachi Norris",
   "Benton Briggs",
   "Bodhi Lawson"
 ];

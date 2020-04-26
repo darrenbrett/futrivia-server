@@ -27,7 +27,6 @@ app.use(async (ctx, next) => {
   }
 });
 
-
 app.use(cors());
 const bodyParser = require("koa-body");
 const mongoose = require("mongoose");

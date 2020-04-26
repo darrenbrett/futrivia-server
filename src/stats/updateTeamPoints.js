@@ -3,8 +3,8 @@ const queryHandler = require('./../../utils/queryHandler');
 const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfGoals) => {
   let awayTeamDoc;
   try {
-    awayTeamDoc = await queryHandler.findOne("pointTotals", {
-      team: awayTeam
+    awayTeamDoc = await queryHandler.findOne("teams", {
+      "name.location": awayTeam
     });
   } catch (error) {
     console.log(error);
@@ -15,12 +15,12 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Tie game result
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: awayTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: awayTeamDoc._id
       }, {
         $set: {
-          ties: awayTeamDoc.ties + 1,
-          points: awayTeamDoc.points + 1,
+          ties: awayTeamDoc.season.ties + 1,
+          points: awayTeamDoc.season.points + 1,
         }
       });
     } catch (error) {
@@ -31,13 +31,13 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Away team win
   if (awayTeamNumOfGoals > homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: awayTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: awayTeamDoc._id
       }, {
         $set: {
-          wins: awayTeamDoc.wins + 1,
-          goalDiff: awayTeamDoc.goalDiff + awayGameGoalDiff,
-          points: awayTeamDoc.points + 3,
+          wins: awayTeamDoc.season.wins + 1,
+          goalDiff: awayTeamDoc.season.goalDiff + awayGameGoalDiff,
+          points: awayTeamDoc.season.points + 3,
         }
       });
     } catch (error) {
@@ -48,12 +48,12 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Away team loss
   if (awayTeamNumOfGoals < homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: awayTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: awayTeamDoc._id
       }, {
         $set: {
-          wins: awayTeamDoc.losses + 1,
-          goalDiff: awayTeamDoc.goalDiff + awayGameGoalDiff
+          wins: awayTeamDoc.season.losses + 1,
+          goalDiff: awayTeamDoc.season.goalDiff + awayGameGoalDiff
         }
       });
     } catch (error) {
@@ -67,8 +67,8 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
 const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfGoals) => {
   let homeTeamDoc;
   try {
-    homeTeamDoc = await queryHandler.findOne("pointTotals", {
-      team: homeTeam.trim()
+    homeTeamDoc = await queryHandler.findOne("teams", {
+      "name.location": homeTeam
     });
   } catch (error) {
     console.log(error);
@@ -79,12 +79,12 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Tie game result
   if (awayTeamNumOfGoals == homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: homeTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: homeTeamDoc._id
       }, {
         $set: {
-          ties: homeTeamDoc.ties + 1,
-          points: homeTeamDoc.points + 1,
+          ties: homeTeamDoc.season.ties + 1,
+          points: homeTeamDoc.season.points + 1,
         }
       });
     } catch (error) {
@@ -95,13 +95,13 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Home team win
   if (awayTeamNumOfGoals < homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: homeTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: homeTeamDoc._id
       }, {
         $set: {
-          wins: homeTeamDoc.wins + 1,
-          goalDiff: homeTeamDoc.goalDiff + homeGameGoalDiff,
-          points: homeTeamDoc.points + 3,
+          wins: homeTeamDoc.season.wins + 1,
+          goalDiff: homeTeamDoc.season.goalDiff + homeGameGoalDiff,
+          points: homeTeamDoc.season.points + 3,
         }
       });
     } catch (error) {
@@ -112,12 +112,12 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
   // Home team loss
   if (awayTeamNumOfGoals > homeTeamNumOfGoals) {
     try {
-      await queryHandler.findOneAndUpdate("pointTotals", {
-        team: homeTeam
+      await queryHandler.findOneAndUpdate("teams", {
+        _id: homeTeamDoc._id
       }, {
         $set: {
-          losses: homeTeamDoc.losses + 1,
-          goalDiff: homeTeamDoc.goalDiff + homeGameGoalDiff
+          losses: homeTeamDoc.season.losses + 1,
+          goalDiff: homeTeamDoc.season.goalDiff + homeGameGoalDiff
         }
       });
     } catch (error) {

@@ -11,13 +11,22 @@ const RoundSchema = new Schema({
   round: {
     type: Number
   },
+  current: {
+    type: Boolean
+  },
   games: [{
     away: {
       type: String
     },
+    awayLogo: {
+      type: String
+    },
     home: {
       type: String
-    }
+    },
+    homeLogo: {
+      type: String
+    },
   }]
 });
 

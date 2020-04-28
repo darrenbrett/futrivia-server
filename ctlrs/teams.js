@@ -1,7 +1,7 @@
 const Team = require('./../models/Team');
 
 // Get all teams
-exports.get = () => {
+exports.getAll = () => {
   try {
     return Team.find();
   } catch (error) {

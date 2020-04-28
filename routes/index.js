@@ -1,52 +1,22 @@
 const Router = require("koa-router");
 const router = new Router();
+// const router = require('koa-router')();
+// const router = new Router();
+
+const users = require('./users');
 
 const teamsCtrl = require("./../ctlrs/teams");
 const playersCtlr = require("./../ctlrs/players");
-const usersCtlr = require("./../ctlrs/users");
+const roundsCtlr = require("./../ctlrs/rounds");
 
-const Game = require("./../models/Game");
-const Round = require("./../models/Round");
+router.use('/api/users', users);
 
-// User Routes ****************************
-
-// Get all users
-router.get("/api/users", async (ctx) => {
-  const users = await usersCtlr.get();
-  ctx.body = users;
-});
-
-// Create a new user
-router.post("/api/users/signup", async ctx => {
-  const username = ctx.request.body.username;
-  const password = ctx.request.body.password;
-  let newUserResponse = await usersCtlr.create(username, password);
-  if (newUserResponse === "duplicate") {
-    ctx.body = {
-      message: "This username already exists",
-      status: 409,
-    };
-  } else {
-    ctx.body = {
-      message: "New user created successfully!",
-      status: 200,
-    };
-  }
-});
-
-// Login a user
-router.post("/api/users/login", async ctx => {
-  const username = ctx.request.body.username;
-  const password = ctx.request.body.password;
-  let loginResponse = await usersCtlr.login(username, password);
-  ctx.body = loginResponse;
-});
 
 // Player Routes ****************************
 
 // Get all players
 router.get("/api/players", async (ctx) => {
-  const players = await playersCtlr.get();
+  const players = await playersCtlr.getAll();
   ctx.body = players;
 });
 
@@ -197,38 +167,31 @@ router.get("/api/games/latest", async (ctx) => {
 
 // Get all rounds
 router.get("/api/rounds", async (ctx) => {
-  await Round.find()
-    .then((rounds) => {
-      ctx.body = rounds;
-    })
-    .catch((err) => {
-      ctx.body = "Error: " + err;
-    });
+  const rounds = await roundsCtlr.getAll();
+  ctx.body = rounds;
 });
 
-// Get a round
-router.get("/api/round/:id", async (ctx) => {
-  await Round.findOne()
-    .then((round) => {
-      ctx.body = round;
-    })
-    .catch((err) => {
-      ctx.body = "Error: " + err;
-    });
+// Get current round
+router.get("/api/rounds/current", async (ctx) => {
+  const {
+    location
+  } = ctx.params;
+  const team = await roundsCtlr.getCurrentRound();
+  ctx.body = team;
 });
 
 // Team Routes ****************************
+
+// Get all teams
+router.get("/api/teams", async (ctx) => {
+  const teams = await teamsCtrl.getAll();
+  ctx.body = teams;
+});
 
 // Get team small logos
 router.get("/api/teams/logos", async (ctx) => {
   const logos = await teamsCtrl.getTeamLogos();
   ctx.body = logos;
-});
-
-// Get all teams
-router.get("/api/teams", async (ctx) => {
-  const teams = await teamsCtrl.get();
-  ctx.body = teams;
 });
 
 // Get team by location

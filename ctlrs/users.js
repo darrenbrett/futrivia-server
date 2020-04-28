@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const verificationKey = require("./../configuration/authConfig");
 
 // Get all users
-exports.get = () => {
+exports.getAll = () => {
   try {
     return User.find();
   } catch (error) {
@@ -63,7 +63,6 @@ exports.login = async (username, password) => {
       token: token
     });
     userToCheck.save();
-    console.log('userToCheck: ', userToCheck);
     return {
       user: userToCheck,
       token: token
@@ -73,4 +72,13 @@ exports.login = async (username, password) => {
     const message = "Auth failed";
     return message;
   }
+};
+
+exports.savePredictions = async (userId, predictionObj) => {
+  const user = await User.findOne({
+    _id: userId,
+  });
+  await user.predictions.push(predictionObj);
+  let updatedUser = await user.save();
+  return updatedUser;
 };

@@ -2,7 +2,7 @@ const queryHandler = require("./../utils/queryHandler");
 const Player = require('./../models/Player');
 
 // Get all players
-exports.get = () => {
+exports.getAll = () => {
   try {
     return Player.find();
   } catch (error) {

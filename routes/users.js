@@ -11,28 +11,27 @@ router.get("/", async (ctx) => {
 
 // Create a new user
 router.post("/signup", async ctx => {
-  const username = ctx.request.body.username;
+  const email = ctx.request.body.email;
   const password = ctx.request.body.password;
-  let newUserResponse = await usersCtlr.create(username, password);
+  const newUserResponse = await usersCtlr.create(email, password);
   if (newUserResponse === "duplicate") {
     ctx.body = {
-      message: "This username already exists",
-      status: 409,
+      message: "This email address already exists"
     };
+    ctx.body.status = 409;
   } else {
     ctx.body = {
-      message: "New user created successfully!",
-      status: 200,
+      message: "New user created successfully!"
     };
+    ctx.body.status = 200;
   }
 });
 
 // Login a user
 router.post("/login", async ctx => {
-  const username = ctx.request.body.username;
+  const email = ctx.request.body.email;
   const password = ctx.request.body.password;
-  let loginResponse = await usersCtlr.login(username, password);
-  console.log('loginResponse:', loginResponse);
+  let loginResponse = await usersCtlr.login(email, password);
   if (loginResponse == 'Auth failed') {
     ctx.body = {
       message: 'Auth failed'

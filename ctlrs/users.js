@@ -15,9 +15,9 @@ exports.getAll = () => {
 };
 
 // Create a new user with hashed password
-exports.create = async (username, password) => {
+exports.create = async (email, password) => {
   const duplicateUsernameCheck = await User.findOne({
-    username: username,
+    username: email,
   });
   if (duplicateUsernameCheck) {
     const duplicateUsernameMessage = "duplicate";
@@ -33,17 +33,16 @@ exports.create = async (username, password) => {
           password: hash,
           roles: ["standard"],
         });
-        const createdUser = await user.save();
-        console.log("createdUser: ", createdUser);
+        await user.save();
       }
     });
   }
 };
 
 // Login a user
-exports.login = async (username, password) => {
+exports.login = async (email, password) => {
   const userToCheck = await User.findOne({
-    username: username,
+    username: email,
   });
   if (!userToCheck) {
     const message = "Auth failed";

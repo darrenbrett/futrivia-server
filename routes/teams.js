@@ -26,7 +26,7 @@ router.get("/:location", async (ctx) => {
 });
 
 // Get eastern conference standings
-router.get("/api/standings/east", async (ctx) => {
+router.get("/standings/east", async (ctx) => {
   await Team.find({
       conference: "Eastern",
     })
@@ -44,7 +44,7 @@ router.get("/api/standings/east", async (ctx) => {
 });
 
 // Get western conference standings
-router.get("/api/standings/west", async (ctx) => {
+router.get("/standings/west", async (ctx) => {
   await Team.find({
       conference: "Western",
     })
@@ -62,7 +62,7 @@ router.get("/api/standings/west", async (ctx) => {
 });
 
 // Get overall standings
-router.get("/api/standings/overall", async (ctx) => {
+router.get("/standings/overall", async (ctx) => {
   await Team.find()
     .sort({
       "season.points": -1,

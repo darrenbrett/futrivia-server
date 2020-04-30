@@ -15,6 +15,21 @@ router.get("/", async (ctx) => {
     });
 });
 
+router.get("/latest", async (ctx) => {
+  await Game.find()
+    .sort({
+      $natural: -1,
+    })
+    .limit(6)
+    .then((games) => {
+      console.log('games: ', games);
+      ctx.body = games;
+    })
+    .catch((err) => {
+      ctx.body = "Error: " + err;
+    });
+});
+
 // Get a game
 router.get("/:id", async (ctx) => {
   await Game.findOne()
@@ -29,20 +44,6 @@ router.get("/:id", async (ctx) => {
 // Get all games by round
 router.get("/seasonRound", async (ctx) => {
   await Game.find()
-    .then((games) => {
-      ctx.body = games;
-    })
-    .catch((err) => {
-      ctx.body = "Error: " + err;
-    });
-});
-
-router.get("/latest", async (ctx) => {
-  await Game.find()
-    .sort({
-      $natural: -1,
-    })
-    .limit(6)
     .then((games) => {
       ctx.body = games;
     })

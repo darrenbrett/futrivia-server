@@ -9,12 +9,20 @@ router.get("/", async (ctx) => {
   ctx.body = users;
 });
 
+// Get current round predictions for a user
+router.post("/check-predictions", async ctx => {
+  const userId = ctx.request.body.userId;
+  const round = ctx.request.body.round;
+  const response = await usersCtlr.hasUserSubmittedRoundPredictions(userId, round);
+  ctx.body = response;
+});
+
 // Create a new user
 router.post("/signup", async ctx => {
   const email = ctx.request.body.email;
   const password = ctx.request.body.password;
-  const newUserResponse = await usersCtlr.create(email, password);
-  if (newUserResponse === "duplicate") {
+  const response = await usersCtlr.create(email, password);
+  if (response === "duplicate") {
     ctx.body = {
       message: "This email address already exists"
     };
@@ -47,6 +55,7 @@ router.post("/predictions", async ctx => {
   const predictionObj = {
     year: ctx.request.body.year.toString(),
     round: ctx.request.body.round.toString(),
+    completed: ctx.request.body.completed,
     predictions: ctx.request.body.predictions
   };
   try {

@@ -16,24 +16,27 @@ exports.getAll = () => {
 
 // Create a new user with hashed password
 exports.create = async (email, password) => {
+  let createdUser;
   const duplicateUsernameCheck = await User.findOne({
     username: email,
   });
   if (duplicateUsernameCheck) {
     const duplicateUsernameMessage = "duplicate";
     return duplicateUsernameMessage;
-  } else {
+  } else if (!duplicateUsernameCheck) {
     bcrypt.hash(password, 10, async (err, hash) => {
       if (err) {
         console.log(err);
         return err;
       } else {
         const user = new User({
-          username: username,
+          username: email,
           password: hash,
           roles: ["standard"],
+          predictionsScore: 0
         });
-        await user.save();
+        createdUser = await user.save();
+        console.log('createdUser: ', createdUser);
       }
     });
   }
@@ -74,10 +77,31 @@ exports.login = async (email, password) => {
 };
 
 exports.savePredictions = async (userId, predictionObj) => {
+  console.log('predictionObj: ', predictionObj);
   const user = await User.findOne({
     _id: userId,
   });
   await user.predictions.push(predictionObj);
   let updatedUser = await user.save();
   return updatedUser;
+};
+
+exports.hasUserSubmittedRoundPredictions = async (userId, round) => {
+  let currentRound;
+  const user = await User.findOne({
+    _id: userId,
+  });
+  for (let p of user.predictions) {
+    if (p.round === round) {
+      currentRound = p;
+    }
+  }
+  if (!currentRound || !currentRound.completed || currentRound.completed === false) {
+    return false;
+  }
+  if ((currentRound.completed === true)) {
+    return true;
+  } else {
+    return false;
+  }
 };

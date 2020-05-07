@@ -26,6 +26,7 @@ module.exports = [
   "Jionni Pickett",
   "Bradley Hart",
   "Bradley Hart",
-  "Aydin Boyle",
+  // "Aydin Boyle",
+  "Taylor Hawkins",
   "Frederick Hamilton"
 ];

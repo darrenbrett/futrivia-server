@@ -4,7 +4,7 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
   let awayTeamDoc;
   try {
     awayTeamDoc = await queryHandler.findOne("teams", {
-      "name.location": awayTeam
+      'name.location': awayTeam
     });
   } catch (error) {
     console.log(error);
@@ -19,8 +19,8 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: awayTeamDoc._id
       }, {
         $set: {
-          ties: awayTeamDoc.season.ties + 1,
-          points: awayTeamDoc.season.points + 1,
+          'season.ties': awayTeamDoc.season.ties + 1,
+          'season.points': awayTeamDoc.season.points + 1,
         }
       });
     } catch (error) {
@@ -35,9 +35,9 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: awayTeamDoc._id
       }, {
         $set: {
-          wins: awayTeamDoc.season.wins + 1,
-          goalDiff: awayTeamDoc.season.goalDiff + awayGameGoalDiff,
-          points: awayTeamDoc.season.points + 3,
+          'season.wins': awayTeamDoc.season.wins + 1,
+          'season.goalDiff': awayTeamDoc.season.goalDiff + awayGameGoalDiff,
+          'season.points': awayTeamDoc.season.points + 3,
         }
       });
     } catch (error) {
@@ -52,8 +52,8 @@ const updateAwayTeamPoints = async (awayTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: awayTeamDoc._id
       }, {
         $set: {
-          wins: awayTeamDoc.season.losses + 1,
-          goalDiff: awayTeamDoc.season.goalDiff + awayGameGoalDiff
+          'season.losses': awayTeamDoc.season.losses + 1,
+          'season.goalDiff': awayTeamDoc.season.goalDiff + awayGameGoalDiff
         }
       });
     } catch (error) {
@@ -83,8 +83,8 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: homeTeamDoc._id
       }, {
         $set: {
-          ties: homeTeamDoc.season.ties + 1,
-          points: homeTeamDoc.season.points + 1,
+          'season.ties': homeTeamDoc.season.ties + 1,
+          'season.points': homeTeamDoc.season.points + 1,
         }
       });
     } catch (error) {
@@ -99,9 +99,9 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: homeTeamDoc._id
       }, {
         $set: {
-          wins: homeTeamDoc.season.wins + 1,
-          goalDiff: homeTeamDoc.season.goalDiff + homeGameGoalDiff,
-          points: homeTeamDoc.season.points + 3,
+          'season.wins': homeTeamDoc.season.wins + 1,
+          'season.goalDiff': homeTeamDoc.season.goalDiff + homeGameGoalDiff,
+          'season.points': homeTeamDoc.season.points + 3,
         }
       });
     } catch (error) {
@@ -116,8 +116,8 @@ const updateHomeTeamPoints = async (homeTeam, awayTeamNumOfGoals, homeTeamNumOfG
         _id: homeTeamDoc._id
       }, {
         $set: {
-          losses: homeTeamDoc.season.losses + 1,
-          goalDiff: homeTeamDoc.season.goalDiff + homeGameGoalDiff
+          'season.losses': homeTeamDoc.season.losses + 1,
+          'season.goalDiff': homeTeamDoc.season.goalDiff + homeGameGoalDiff
         }
       });
     } catch (error) {

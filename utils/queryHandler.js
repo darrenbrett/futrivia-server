@@ -57,7 +57,6 @@ async function find(collection, filter = {}, sort = {}) {
     .forEach(doc => {
       dataArr.push(doc);
     });
-
   await connection.close();
   return dataArr;
 }

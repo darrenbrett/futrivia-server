@@ -20,10 +20,14 @@ const UserSchema = new Schema({
     round: {
       type: Number
     },
-    predictions: [{
-
-    }]
-  }]
+    completed: {
+      type: Boolean
+    },
+    predictions: [{}]
+  }],
+  predictionsScore: {
+    type: Number
+  }
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

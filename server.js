@@ -66,7 +66,8 @@ const connectToDB = async () => {
   if (process.argv[2] === 'prod') {
     env = 'Production';
     port = process.env.port || 4000;
-    await mongoose.connect('mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl', {
+    // await mongoose.connect('mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl', {
+    await mongoose.connect('mongodb://heroku_3jzbgvw8:Thunderhead20!@ds139884.mlab.com:39884/heroku_3jzbgvw8', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

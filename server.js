@@ -67,13 +67,13 @@ const connectToDB = async () => {
     env = 'Production';
     port = process.env.port || 4000;
     // await mongoose.connect('mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl', {
-    await mongoose.connect('mongodb://heroku_3jzbgvw8:Thunderhead20!@ds139884.mlab.com:39884/heroku_3jzbgvw8', {
+    await mongoose.connect('mongodb://muirik:Ravencloak20!@ds139884.mlab.com:39884/heroku_3jzbgvw8', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
   } else if (process.argv[2] === 'dev') {
     env = 'Development';
-    port = '3000';
+    port = 3000;
     await mongoose.connect('mongodb://localhost:27017/evpsl', {
       useNewUrlParser: true,
       useUnifiedTopology: true,

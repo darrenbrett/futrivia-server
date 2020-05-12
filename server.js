@@ -28,9 +28,6 @@ const routeAuth = require('./middleware/routeAuth');
 
 app.use(bodyParser());
 app.use(routing.routes());
-// app.use(router.routes());
-// app.use("/user", userRoutes);
-const port = "3000";
 
 // // Log response time of calls
 // app.use(async (ctx, next) => {
@@ -58,9 +55,44 @@ const port = "3000";
 //   }
 // });
 
-mongoose.connect("mongodb://localhost:27017/evpsl", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect("mongodb://localhost:27017/evpsl", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-app.listen(port, () => console.log(`Server started. Listening on port ${port}...`));
+const connectToDB = async () => {
+  let port;
+  let env;
+  if (process.argv[2] === 'prod') {
+    env = 'Production';
+    port = process.env.port || 4000;
+    await mongoose.connect('mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } else if (process.argv[2] === 'dev') {
+    env = 'Development';
+    port = '3000';
+    await mongoose.connect('mongodb://localhost:27017/evpsl', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } else {
+    env = 'Development';
+    port = 3000;
+    await mongoose.connect('mongodb://localhost:27017/evpsl', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  }
+  app.listen(port, () => console.log(`${env} server started. Listening on port ${port}...`));
+};
+
+connectToDB();
+
+// mongoose.connect("mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+// app.listen(port, () => console.log(`Server started. Listening on port ${port}...`));

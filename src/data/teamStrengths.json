@@ -1,14 +1,14 @@
 [{
     "name": "Andessa",
-    "rating": 5
+    "rating": 6
   },
   {
     "name": "Aventura",
-    "rating": 7
+    "rating": 5
   },
   {
     "name": "Creighton",
-    "rating": 8
+    "rating": 7
   },
   {
     "name": "Hawthorne",
@@ -16,7 +16,7 @@
   },
   {
     "name": "Janders",
-    "rating": 5
+    "rating": 6
   },
   {
     "name": "Larson",
@@ -40,10 +40,10 @@
   },
   {
     "name": "Sanviago",
-    "rating": 5
+    "rating": 6
   },
   {
     "name": "Argonia",
-    "rating": 7
+    "rating": 8
   }
 ]

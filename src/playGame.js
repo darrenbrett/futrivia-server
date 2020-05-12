@@ -12,8 +12,8 @@ const getTeamLogo = require('./getTeamLogo');
 const getGameResults = async function () {
   const seasonRound = "20-10";
   const round = 10;
-  const awayTeam = "Rosdan";
-  const homeTeam = "Solstan";
+  const awayTeam = "Aventura";
+  const homeTeam = "Rosdan";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
 
@@ -58,8 +58,7 @@ const getGameResults = async function () {
     homeTeamNumOfGoals,
     homeTeamGoalTimes,
     homeTeamGoalTypes,
-    penaltyMissed,
-    gameResult
+    penaltyMissed
   };
 
   await gamesCtlr.saveGame(gameDetails);

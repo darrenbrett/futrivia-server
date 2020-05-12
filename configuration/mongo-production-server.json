@@ -1,0 +1,5 @@
+{
+  "MONGO_URL": "mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl",
+  "MONGO_DATABASE": "evpsl",
+  "JWT_KEY": "wonder"
+}

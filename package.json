@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "set NODE_ENV=development && mocha",
-    "start": "nodemon server"
+    "start": "nodemon server prod"
   },
   "author": "Darren King",
   "license": "ISC",

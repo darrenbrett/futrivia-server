@@ -24,7 +24,7 @@ const bodyParser = require("koa-body");
 const mongoose = require("mongoose");
 
 const routing = require("./routes");
-const routeAuth = require('./middleware/routeAuth');
+const routeAuth = require("./middleware/routeAuth");
 
 app.use(bodyParser());
 app.use(routing.routes());
@@ -63,25 +63,25 @@ app.use(routing.routes());
 const connectToDB = async () => {
   let port;
   let env;
-  if (process.argv[2] === 'prod') {
-    env = 'Production';
+  if (process.argv[2] === "prod") {
+    env = "Production";
     port = process.env.PORT || 4000;
-    const connection = await mongoose.connect('mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8', {
+    const connection = await mongoose.connect("mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('connection: ', connection);
-  } else if (process.argv[2] === 'dev') {
-    env = 'Development';
+    console.log("connection: ", connection);
+  } else if (process.argv[2] === "dev") {
+    env = "Development";
     port = 3000;
-    await mongoose.connect('mongodb://localhost:27017/evpsl', {
+    await mongoose.connect("mongodb://localhost:27017/evpsl", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
   } else {
-    env = 'Development';
+    env = "Development";
     port = 3000;
-    await mongoose.connect('mongodb://localhost:27017/evpsl', {
+    await mongoose.connect("mongodb://localhost:27017/evpsl", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

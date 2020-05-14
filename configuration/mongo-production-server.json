@@ -1,5 +1,5 @@
-// {
-//   "MONGO_URL": "mongodb://heroku_3jzbgvw8:Thunderhead20!@ds139884.mlab.com:39884/heroku_3jzbgvw8",
-//   "MONGO_DATABASE": "evpsl",
-//   "JWT_KEY": "wonder"
-// }
+{
+  "MONGO_URL": "mongodb://heroku_3jzbgvw8:Thunderhead20!@ds139884.mlab.com:39884/heroku_3jzbgvw8",
+  "MONGO_DATABASE": "evpsl",
+  "JWT_KEY": "wonder"
+}

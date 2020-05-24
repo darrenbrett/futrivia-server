@@ -15,7 +15,7 @@ module.exports = [
   "Manny Estrada",
   "Manny Estrada",
   "Manny Estrada",
-  "Sam Sweet",
+  "Manny Estrada",
   "Sam Sweet",
   "Sam Sweet",
   "Sam Sweet",

@@ -11,8 +11,8 @@ router.get("/", async (ctx) => {
 
 // Get current round
 router.get("/current", async (ctx) => {
-  const team = await roundsCtlr.getCurrentRound();
-  ctx.body = team;
+  const round = await roundsCtlr.getCurrentRound();
+  ctx.body = round;
 });
 
 module.exports = router.routes();

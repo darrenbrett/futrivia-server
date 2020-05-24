@@ -5,6 +5,8 @@ module.exports = [
   "Alejandro Hernandez",
   "Alejandro Hernandez",
   "Alejandro Hernandez",
+  "Alejandro Hernandez",
+  "Tyson Raymond",
   "Tyson Raymond",
   "Tyson Raymond",
   "Tyson Raymond",
@@ -15,8 +17,6 @@ module.exports = [
   "Griffin Howe",
   "Griffin Howe",
   "Griffin Howe",
-  "Griffin Howe",
-  "Jeffrey Fisher",
   "Jeffrey Fisher",
   "Jeffrey Fisher",
   "Giancarlo Summers",
@@ -26,7 +26,6 @@ module.exports = [
   "Jionni Pickett",
   "Bradley Hart",
   "Bradley Hart",
-  // "Aydin Boyle",
-  "Taylor Hawkins",
+  "Aydin Boyle",
   "Frederick Hamilton"
 ];

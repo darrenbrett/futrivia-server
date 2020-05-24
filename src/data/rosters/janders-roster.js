@@ -5,6 +5,8 @@ module.exports = [
   "Denzel Eaton",
   "Denzel Eaton",
   "Denzel Eaton",
+  "Denzel Eaton",
+  "David Floyd",
   "David Floyd",
   "David Floyd",
   "David Floyd",
@@ -15,8 +17,6 @@ module.exports = [
   "Frankie Hampton",
   "Frankie Hampton",
   "Frankie Hampton",
-  "Frankie Hampton",
-  "Ricardo Combs",
   "Ricardo Combs",
   "Ricardo Combs",
   "Ricardo Combs",
@@ -27,6 +27,5 @@ module.exports = [
   "Royce Hubbard",
   "Brent Holman",
   "Truman Mclean",
-  // "Julian Sheppard"
-  "Jamarion Daniels"
+  "Julian Sheppard"
 ];

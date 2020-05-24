@@ -10,12 +10,13 @@ const updatePlayerGoals = require('./stats/updatePlayerGoals');
 const getTeamLogo = require('./getTeamLogo');
 
 const getGameResults = async function () {
-  const seasonRound = "20-10";
-  const round = 10;
-  const awayTeam = "Aventura";
-  const homeTeam = "Rosdan";
+  const seasonRound = "20-12";
+  const round = 12;
+  const awayTeam = "Westingdon";
+  const homeTeam = "Argonia";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
+  let winner;
 
   const awayTeamLogoUrl = await getTeamLogo(awayTeam);
   const homeTeamLogoUrl = await getTeamLogo(homeTeam);
@@ -43,6 +44,12 @@ const getGameResults = async function () {
   const awayTeamGoalTypes = await goalDetails.getTypesForGoals(awayTeamNumOfGoals);
   const homeTeamGoalTypes = await goalDetails.getTypesForGoals(homeTeamNumOfGoals);
 
+  if (awayTeamNumOfGoals > homeTeamNumOfGoals) {
+    winner = awayTeam;
+  } else if (awayTeamNumOfGoals < homeTeamNumOfGoals) {
+    winner = homeTeam;
+  }
+
   const gameDetails = {
     seasonRound,
     round,
@@ -58,7 +65,8 @@ const getGameResults = async function () {
     homeTeamNumOfGoals,
     homeTeamGoalTimes,
     homeTeamGoalTypes,
-    penaltyMissed
+    penaltyMissed,
+    winner
   };
 
   await gamesCtlr.saveGame(gameDetails);

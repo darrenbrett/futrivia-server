@@ -13,10 +13,12 @@ exports.getAll = () => {
 
 // Get team by location
 exports.getCurrentRound = async () => {
+  console.log('getCurrentRound() firing...');
   try {
     const round = await queryHandler.findOne('rounds', {
       current: true
     });
+    console.log('round: ', round);
     return round;
   } catch (error) {
     console.log('Error in teams ctlr getCurrentRound function');

@@ -12,15 +12,13 @@ router.get("/", async (ctx) => {
 // Get current round
 router.get("/current", async (ctx) => {
   const round = await roundsCtlr.getCurrentRound();
-  ctx.body = round;
-  console.log('ctx.body: ', ctx.body);
+  ctx.body = round[0];
 });
 
 // Get filtered round
 router.post("/filtered", async (ctx) => {
-  const round = await roundsCtlr.getFilteredRound();
-  ctx.body = round;
-  console.log('ctx.body: ', ctx.body);
+  const round = await roundsCtlr.getFilteredRound(ctx.request.body);
+  ctx.body = round[0];
 });
 
 module.exports = router.routes();

@@ -11,7 +11,7 @@ exports.getAll = () => {
   }
 };
 
-// Get team by location
+// Get current round
 exports.getCurrentRound = async () => {
   console.log('getCurrentRound() firing...');
   try {
@@ -22,6 +22,19 @@ exports.getCurrentRound = async () => {
     return round;
   } catch (error) {
     console.log('Error in teams ctlr getCurrentRound function');
+    console.log(error);
+  }
+};
+
+// Get round by filter
+exports.getFilteredRound = async (filter) => {
+  console.log('getCurrentRound() firing...');
+  try {
+    const round = await queryHandler.findOne('rounds', filter);
+    console.log('filtered round: ', round);
+    return round;
+  } catch (error) {
+    console.log('Error in teams ctlr get filtered round function');
     console.log(error);
   }
 };

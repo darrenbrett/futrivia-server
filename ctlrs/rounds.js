@@ -15,8 +15,11 @@ exports.getAll = () => {
 // Get team by location
 exports.getCurrentRound = async () => {
   try {
-    const round = await queryHandler.findOne('rounds', {
-      current: true
+    // const round = await queryHandler.findOne('rounds', {
+    //   current: true
+    // });
+    const round = await queryHandler.find('rounds', {
+      year: 2020
     });
     return round;
   } catch (error) {

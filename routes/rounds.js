@@ -5,6 +5,7 @@ const roundsCtlr = require("./../ctlrs/rounds");
 
 // Get all rounds
 router.get("/", async (ctx) => {
+  console.log('get all rounds route called...');
   const rounds = await roundsCtlr.getAll();
   ctx.body = rounds;
 });

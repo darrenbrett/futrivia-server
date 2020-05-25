@@ -12,19 +12,32 @@ exports.getAll = () => {
 };
 
 // Get current round
-exports.getCurrentRound = async () => {
+exports.getCurrentRound = () => {
   console.log('getCurrentRound() firing...');
   try {
-    const round = await queryHandler.findOne('rounds', {
+    return Round.find({
       current: true
     });
-    console.log('round: ', round);
-    return round;
   } catch (error) {
-    console.log('Error in teams ctlr getCurrentRound function');
+    console.log('Error in get current round function');
     console.log(error);
   }
 };
+
+// // Get current round
+// exports.getCurrentRound = async () => {
+//   console.log('getCurrentRound() firing...');
+//   try {
+//     const round = await queryHandler.findOne('rounds', {
+//       current: true
+//     });
+//     console.log('round: ', round);
+//     return round;
+//   } catch (error) {
+//     console.log('Error in rounds ctlr getCurrentRound function');
+//     console.log(error);
+//   }
+// };
 
 // Get round by filter
 exports.getFilteredRound = async (filter) => {
@@ -34,7 +47,7 @@ exports.getFilteredRound = async (filter) => {
     console.log('filtered round: ', round);
     return round;
   } catch (error) {
-    console.log('Error in teams ctlr get filtered round function');
+    console.log('Error in rounds ctlr get filtered round function');
     console.log(error);
   }
 };

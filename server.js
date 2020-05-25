@@ -66,11 +66,10 @@ const connectToDB = async () => {
   if (process.argv[2] === "prod") {
     env = "Production";
     port = process.env.PORT || 4000;
-    const connection = await mongoose.connect("mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8", {
+    await mongoose.connect("mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("connection: ", connection);
   } else if (process.argv[2] === "dev") {
     env = "Development";
     port = 3000;

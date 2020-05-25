@@ -15,9 +15,10 @@ exports.getAll = () => {
 exports.getCurrentRound = () => {
   console.log('getCurrentRound() firing...');
   try {
-    return Round.find({
+    const roundArr = Round.find({
       current: true
     });
+    return roundArr[0];
   } catch (error) {
     console.log('Error in get current round function');
     console.log(error);

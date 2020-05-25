@@ -17,7 +17,7 @@ router.get("/current", async (ctx) => {
 });
 
 // Get filtered round
-router.get("/filtered", async (ctx) => {
+router.post("/filtered", async (ctx) => {
   const round = await roundsCtlr.getFilteredRound();
   ctx.body = round;
   console.log('ctx.body: ', ctx.body);

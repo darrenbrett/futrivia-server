@@ -1,5 +1,4 @@
 const Round = require('./../models/Round');
-const Team = require('./../models/Team');
 const queryHandler = require('./../utils/queryHandler');
 
 // Get all rounds
@@ -15,11 +14,8 @@ exports.getAll = () => {
 // Get team by location
 exports.getCurrentRound = async () => {
   try {
-    // const round = await queryHandler.findOne('rounds', {
-    //   current: true
-    // });
-    const round = await queryHandler.find('rounds', {
-      year: 2020
+    const round = await queryHandler.findOne('rounds', {
+      current: true
     });
     return round;
   } catch (error) {
@@ -28,19 +24,19 @@ exports.getCurrentRound = async () => {
   }
 };
 
-exports.getTeamLogos = async () => {
-  let teamLogosArr = [];
-  try {
-    let teams = await queryHandler.find('teams');
-    teamLogosArr = teams.map(({
-      name,
-      lgLogoUrl
-    }) => ({
-      name,
-      lgLogoUrl
-    }));
-  } catch (error) {
-    console.log(error);
-  }
-  return teamLogosArr;
-};
+// exports.getTeamLogos = async () => {
+//   let teamLogosArr = [];
+//   try {
+//     let teams = await queryHandler.find('teams');
+//     teamLogosArr = teams.map(({
+//       name,
+//       lgLogoUrl
+//     }) => ({
+//       name,
+//       lgLogoUrl
+//     }));
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return teamLogosArr;
+// };

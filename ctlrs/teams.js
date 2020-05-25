@@ -22,12 +22,13 @@ exports.getByLocation = (location) => {
   }
 };
 
-// Get team small logos
+// Get team logos
 exports.getTeamLogos = () => {
   try {
     return Team.find({}, {
       _id: 0,
       "name.location": 1,
+      lgLogoUrl: 1,
       smLogoUrl: 1
     });
   } catch (error) {

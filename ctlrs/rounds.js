@@ -24,28 +24,11 @@ exports.getCurrentRound = () => {
 };
 
 // Get round by filter
-exports.getFilteredRound = async (filter) => {
+exports.getFilteredRound = (filter) => {
   try {
     return Round.find(filter);
   } catch (error) {
     console.log('Error in rounds ctlr get filtered round function');
     console.log(error);
   }
-};
-
-exports.getTeamLogos = async () => {
-  let teamLogosArr = [];
-  try {
-    let teams = await queryHandler.find('teams');
-    teamLogosArr = teams.map(({
-      name,
-      lgLogoUrl
-    }) => ({
-      name,
-      lgLogoUrl
-    }));
-  } catch (error) {
-    console.log(error);
-  }
-  return teamLogosArr;
 };

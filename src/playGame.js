@@ -10,10 +10,10 @@ const updatePlayerGoals = require('./stats/updatePlayerGoals');
 const getTeamLogo = require('./getTeamLogo');
 
 const getGameResults = async function () {
-  const seasonRound = "20-12";
-  const round = 12;
-  const awayTeam = "Westingdon";
-  const homeTeam = "Argonia";
+  const seasonRound = "20-13";
+  const round = 13;
+  const awayTeam = "Argonia";
+  const homeTeam = "Pieska";
   const score = await playGame.genScore(awayTeam, homeTeam);
   let goalsArr = score.split(":");
   let winner;

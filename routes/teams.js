@@ -51,6 +51,7 @@ router.get("/standings/west", async (ctx) => {
     })
     .sort({
       "season.points": -1,
+      "season.wins": -1,
       "season.goalDiff": -1,
     })
     .populate("roster", ["fullName", "position"])

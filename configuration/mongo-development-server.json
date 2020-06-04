@@ -1,5 +1,5 @@
 {
   "MONGO_URL": "mongodb://localhost:27017",
-  "MONGO_DATABASE": "evpsl",
+  "MONGO_DATABASE": "futrivia",
   "JWT_KEY": "wonder"
 }

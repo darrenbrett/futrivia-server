@@ -1,6 +1,8 @@
-const User = require("./../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const User = require("./../models/User");
+const queryHandler = require("./../utils/queryHandler");
 
 const verificationKey = require("./../configuration/authConfig");
 
@@ -44,6 +46,8 @@ exports.create = async (email, password) => {
 
 // Login a user
 exports.login = async (email, password) => {
+  console.log('email: ', email);
+  console.log('password: ', password);
   const userToCheck = await User.findOne({
     username: email,
   });
@@ -77,7 +81,6 @@ exports.login = async (email, password) => {
 };
 
 exports.savePredictions = async (userId, predictionObj) => {
-  console.log('predictionObj: ', predictionObj);
   const user = await User.findOne({
     _id: userId,
   });
@@ -104,4 +107,31 @@ exports.hasUserSubmittedRoundPredictions = async (userId, round) => {
   } else {
     return false;
   }
+};
+
+exports.updateLastSetCompleted = async (username, lastCompletedSet) => {
+  const user = await User.findOne({
+    username: username,
+  });
+  user.lastCompletedSet = lastCompletedSet;
+  let updatedUser = await user.save();
+  return updatedUser;
+};
+
+// Get next trivia set for user
+exports.getNextTriviaSet = async (username) => {
+  const user = await User.findOne({
+    username: username,
+  });
+  let nextTriviaSetNum = user.lastCompletedSet + 1;
+  let nextTriviaSet;
+  try {
+    nextTriviaSet = await queryHandler.findOne("triviaSets", {
+      set: nextTriviaSetNum
+    });
+  } catch (error) {
+    console.log('Error getting next trivia set for user...');
+    console.log(error);
+  }
+  return nextTriviaSet;
 };

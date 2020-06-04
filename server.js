@@ -66,21 +66,25 @@ const connectToDB = async () => {
   if (process.argv[2] === "prod") {
     env = "Production";
     port = process.env.PORT || 4000;
-    await mongoose.connect("mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8", {
+    // await mongoose.connect("mongodb://heroku_3jzbgvw8:tdn6as828vnlonj5p474llc60p@ds139884.mlab.com:39884/heroku_3jzbgvw8", {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    // });
+    await mongoose.connect("mongodb://nerradgnik:QPkJ8cLmM#KpaKd@ds159025.mlab.com:59025/heroku_bb2s51pk", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
   } else if (process.argv[2] === "dev") {
     env = "Development";
     port = 3000;
-    await mongoose.connect("mongodb://localhost:27017/evpsl", {
+    await mongoose.connect("mongodb://localhost:27017/futrivia", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
   } else {
     env = "Development";
     port = 3000;
-    await mongoose.connect("mongodb://localhost:27017/evpsl", {
+    await mongoose.connect("mongodb://localhost:27017/futrivia", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -89,10 +93,3 @@ const connectToDB = async () => {
 };
 
 connectToDB();
-
-// mongoose.connect("mongodb://dking:Nutellaineurope90!@ds127492.mlab.com:27492/evpsl", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// app.listen(port, () => console.log(`Server started. Listening on port ${port}...`));

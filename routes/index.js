@@ -5,12 +5,12 @@ const users = require('./users');
 const players = require('./players');
 const games = require('./games');
 const rounds = require('./rounds');
-const teams = require('./teams');
+const triviaSets = require('./trivia-sets');
 
 router.use('/api/users', users);
 router.use('/api/players', players);
 router.use('/api/games', games);
 router.use('/api/rounds', rounds);
-router.use('/api/teams', teams);
+router.use('/api/trivia-sets', triviaSets);
 
 module.exports = router;

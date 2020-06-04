@@ -69,4 +69,30 @@ router.post("/predictions", async ctx => {
   }
 });
 
+// Update last completed trivia set for a user
+router.post("/update-last-set-completed", async ctx => {
+  const username = ctx.request.body.username;
+  const lastCompletedSet = ctx.request.body.lastCompletedSet;
+  try {
+    let updateResponse = await usersCtlr.updateLastSetCompleted(username, lastCompletedSet);
+    ctx.body = updateResponse;
+  } catch (error) {
+    ctx.body = {
+      error: error,
+      message: 'Error saving last completed set'
+    };
+  }
+});
+
+// Get next trivia set for a given user
+router.get("/next-set/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const nextTriviaSet = await usersCtlr.getNextTriviaSet(username);
+  ctx.body = nextTriviaSet;
+});
+
+module.exports = router.routes();
+
 module.exports = router.routes();

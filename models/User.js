@@ -3,29 +3,14 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   username: {
-    type: String,
+    type: String
   },
   password: {
-    type: String,
-  },
-  type: {
-    type: Number,
+    type: String
   },
   tokens: [],
   roles: [],
-  predictions: [{
-    year: {
-      type: Number
-    },
-    round: {
-      type: Number
-    },
-    completed: {
-      type: Boolean
-    },
-    predictions: [{}]
-  }],
-  predictionsScore: {
+  lastCompletedSet: {
     type: Number
   }
 });

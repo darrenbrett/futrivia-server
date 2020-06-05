@@ -9,12 +9,13 @@ router.get("/", async (ctx) => {
   ctx.body = users;
 });
 
-// Get current round predictions for a user
-router.post("/check-predictions", async ctx => {
-  const userId = ctx.request.body.userId;
-  const round = ctx.request.body.round;
-  const response = await usersCtlr.hasUserSubmittedRoundPredictions(userId, round);
-  ctx.body = response;
+// Get a user by username
+router.get("/stats/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const user = await usersCtlr.getUser(username);
+  ctx.body = user;
 });
 
 // Create a new user
@@ -70,16 +71,17 @@ router.post("/predictions", async ctx => {
 });
 
 // Update last completed trivia set for a user
-router.post("/update-last-set-completed", async ctx => {
+router.post("/update-user-stats", async ctx => {
   const username = ctx.request.body.username;
   const lastCompletedSet = ctx.request.body.lastCompletedSet;
+  const pointsToAdd = ctx.request.body.pointsToAdd;
   try {
-    let updateResponse = await usersCtlr.updateLastSetCompleted(username, lastCompletedSet);
+    let updateResponse = await usersCtlr.updateStats(username, lastCompletedSet, pointsToAdd);
     ctx.body = updateResponse;
   } catch (error) {
     ctx.body = {
       error: error,
-      message: 'Error saving last completed set'
+      message: 'Error saving players stats update'
     };
   }
 });
@@ -92,7 +94,5 @@ router.get("/next-set/:username", async (ctx) => {
   const nextTriviaSet = await usersCtlr.getNextTriviaSet(username);
   ctx.body = nextTriviaSet;
 });
-
-module.exports = router.routes();
 
 module.exports = router.routes();

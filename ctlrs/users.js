@@ -46,8 +46,6 @@ exports.create = async (email, password) => {
 
 // Login a user
 exports.login = async (email, password) => {
-  console.log('email: ', email);
-  console.log('password: ', password);
   const userToCheck = await User.findOne({
     username: email,
   });
@@ -89,33 +87,28 @@ exports.savePredictions = async (userId, predictionObj) => {
   return updatedUser;
 };
 
-exports.hasUserSubmittedRoundPredictions = async (userId, round) => {
-  let currentRound;
-  const user = await User.findOne({
-    _id: userId,
-  });
-  for (let p of user.predictions) {
-    if (p.round === round) {
-      currentRound = p;
-    }
-  }
-  if (!currentRound || !currentRound.completed || currentRound.completed === false) {
-    return false;
-  }
-  if ((currentRound.completed === true)) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-exports.updateLastSetCompleted = async (username, lastCompletedSet) => {
+exports.updateStats = async (username, lastCompletedSet, pointsToAdd) => {
   const user = await User.findOne({
     username: username,
   });
   user.lastCompletedSet = lastCompletedSet;
+  user.points = user.points + pointsToAdd;
+  user.roundsCompleted = user.roundsCompleted + 1;
   let updatedUser = await user.save();
   return updatedUser;
+};
+
+exports.getUser = async (username) => {
+  let user;
+  try {
+    user = await User.findOne({
+      username: username,
+    });
+  } catch (error) {
+    console.log('Error getting user...');
+    console.log(error);
+  }
+  return user;
 };
 
 // Get next trivia set for user

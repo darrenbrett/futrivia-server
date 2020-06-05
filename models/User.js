@@ -11,8 +11,23 @@ const UserSchema = new Schema({
   tokens: [],
   roles: [],
   lastCompletedSet: {
-    type: Number
+    type: Number,
+    default: 0
+  },
+  points: {
+    type: Number,
+    default: 0
+  },
+  level: {
+    type: String,
+    default: 'rookie'
+  },
+  roundsCompleted: {
+    type: Number,
+    default: 0
   }
+}, {
+  versionKey: false
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

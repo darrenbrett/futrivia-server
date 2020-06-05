@@ -25,6 +25,8 @@ const TriviaSetSchema = new Schema({
       type: String
     }
   }]
+}, {
+  versionKey: false
 });
 
 module.exports = TriviaSet = mongoose.model("triviaSets", TriviaSetSchema);

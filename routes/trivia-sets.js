@@ -8,3 +8,5 @@ router.get("/", async (ctx) => {
   const users = await triviaSetsCtlr.getAll();
   ctx.body = users;
 });
+
+module.exports = router.routes();

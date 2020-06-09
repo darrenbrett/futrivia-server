@@ -11,39 +11,37 @@ router.get("/", async (ctx) => {
 
 // Get a user by username
 router.get("/stats/:username", async (ctx) => {
-  const {
-    username
-  } = ctx.params;
+  const { username } = ctx.params;
   const user = await usersCtlr.getUser(username);
   ctx.body = user;
 });
 
 // Create a new user
-router.post("/signup", async ctx => {
+router.post("/signup", async (ctx) => {
   const email = ctx.request.body.email;
   const password = ctx.request.body.password;
   const response = await usersCtlr.create(email, password);
   if (response === "duplicate") {
     ctx.body = {
-      message: "This email address already exists"
+      message: "This email address already exists",
     };
     ctx.body.status = 409;
   } else {
     ctx.body = {
-      message: "New user created successfully!"
+      message: "New user created successfully!",
     };
     ctx.body.status = 200;
   }
 });
 
 // Login a user
-router.post("/login", async ctx => {
+router.post("/login", async (ctx) => {
   const email = ctx.request.body.email;
   const password = ctx.request.body.password;
   let loginResponse = await usersCtlr.login(email, password);
-  if (loginResponse == 'Auth failed') {
+  if (loginResponse == "Auth failed") {
     ctx.body = {
-      message: 'Auth failed'
+      message: "Auth failed",
     };
     return ctx.body;
   }
@@ -51,13 +49,13 @@ router.post("/login", async ctx => {
 });
 
 // Save user predictions
-router.post("/predictions", async ctx => {
+router.post("/predictions", async (ctx) => {
   const userId = ctx.request.body.userId;
   const predictionObj = {
     year: ctx.request.body.year.toString(),
     round: ctx.request.body.round.toString(),
     completed: ctx.request.body.completed,
-    predictions: ctx.request.body.predictions
+    predictions: ctx.request.body.predictions,
   };
   try {
     let loginResponse = await usersCtlr.savePredictions(userId, predictionObj);
@@ -65,13 +63,13 @@ router.post("/predictions", async ctx => {
   } catch (error) {
     ctx.body = {
       error: error,
-      message: 'Error saving user predictions'
+      message: "Error saving user predictions",
     };
   }
 });
 
 // Update last completed trivia set for a user
-router.post("/update-user-stats", async ctx => {
+router.post("/update-user-stats", async (ctx) => {
   const username = ctx.request.body.username;
   const lastCompletedSet = ctx.request.body.lastCompletedSet;
   const pointsToAdd = ctx.request.body.pointsToAdd;
@@ -81,16 +79,14 @@ router.post("/update-user-stats", async ctx => {
   } catch (error) {
     ctx.body = {
       error: error,
-      message: 'Error saving players stats update'
+      message: "Error saving players stats update",
     };
   }
 });
 
 // Get next trivia set for a given user
 router.get("/next-set/:username", async (ctx) => {
-  const {
-    username
-  } = ctx.params;
+  const { username } = ctx.params;
   const nextTriviaSet = await usersCtlr.getNextTriviaSet(username);
   ctx.body = nextTriviaSet;
 });

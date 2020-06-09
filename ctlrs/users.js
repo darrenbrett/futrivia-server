@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 const User = require("./../models/User");
 const queryHandler = require("./../utils/queryHandler");
@@ -35,10 +36,10 @@ exports.create = async (email, password) => {
           username: email,
           password: hash,
           roles: ["standard"],
-          predictionsScore: 0
+          predictionsScore: 0,
         });
         createdUser = await user.save();
-        console.log('createdUser: ', createdUser);
+        console.log("createdUser: ", createdUser);
       }
     });
   }
@@ -56,20 +57,22 @@ exports.login = async (email, password) => {
   const hashedPassword = userToCheck.password;
   const match = await bcrypt.compare(password, hashedPassword);
   if (match) {
-    const token = jwt.sign({
-        username: userToCheck.username
+    const token = jwt.sign(
+      {
+        username: userToCheck.username,
       },
-      verificationKey, {
-        expiresIn: 86400
+      verificationKey,
+      {
+        expiresIn: 86400,
       }
     );
     await userToCheck.tokens.push({
-      token: token
+      token: token,
     });
     userToCheck.save();
     return {
       user: userToCheck,
-      token: token
+      token: token,
     };
   } else {
     console.log("Passwords did not match!");
@@ -87,14 +90,34 @@ exports.savePredictions = async (userId, predictionObj) => {
   return updatedUser;
 };
 
+exports.runFeaturesCheck = (roundsCompleted) => {
+  let feature;
+  if (roundsCompleted === 3) {
+    feature = "Fast Mover";
+  } else if (roundsCompleted === 6) {
+    feature = "Scorcher";
+  } else if (roundsCompleted === 10) {
+    feature = "Earth Shaker";
+  }
+  return feature;
+};
+
 exports.updateStats = async (username, lastCompletedSet, pointsToAdd) => {
   const user = await User.findOne({
     username: username,
   });
   user.lastCompletedSet = lastCompletedSet;
   user.points = user.points + pointsToAdd;
-  user.roundsCompleted = user.roundsCompleted + 1;
-  let updatedUser = await user.save();
+  user.roundsCompleted = ++user.roundsCompleted;
+  user.roundsRemaining = --user.roundsRemaining;
+  user.lastScore = pointsToAdd;
+  if (user.roundsCompleted > 2) {
+    const featureToUnlock = await this.runFeaturesCheck(user.roundsCompleted);
+    if (featureToUnlock && !user.featuresUnlocked.includes(featureToUnlock)) {
+      await user.featuresUnlocked.push(featureToUnlock);
+    }
+  }
+  const updatedUser = await user.save();
   return updatedUser;
 };
 
@@ -105,7 +128,7 @@ exports.getUser = async (username) => {
       username: username,
     });
   } catch (error) {
-    console.log('Error getting user...');
+    console.log("Error getting user...");
     console.log(error);
   }
   return user;
@@ -120,10 +143,10 @@ exports.getNextTriviaSet = async (username) => {
   let nextTriviaSet;
   try {
     nextTriviaSet = await queryHandler.findOne("triviaSets", {
-      set: nextTriviaSetNum
+      set: nextTriviaSetNum,
     });
   } catch (error) {
-    console.log('Error getting next trivia set for user...');
+    console.log("Error getting next trivia set for user...");
     console.log(error);
   }
   return nextTriviaSet;

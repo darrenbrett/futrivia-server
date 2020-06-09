@@ -10,6 +10,9 @@ const UserSchema = new Schema({
   },
   tokens: [],
   roles: [],
+  featuresUnlocked: [{
+    type: String
+  }],
   lastCompletedSet: {
     type: Number,
     default: 0
@@ -23,6 +26,14 @@ const UserSchema = new Schema({
     default: 'rookie'
   },
   roundsCompleted: {
+    type: Number,
+    default: 0
+  },
+  roundsRemaining: {
+    type: Number,
+    default: 0,
+  },
+  lastScore: {
     type: Number,
     default: 0
   }

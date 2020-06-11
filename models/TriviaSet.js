@@ -5,6 +5,9 @@ const TriviaSetSchema = new Schema({
   category: {
     type: String
   },
+  topic: {
+    type: String
+  },
   set: {
     type: Number
   },

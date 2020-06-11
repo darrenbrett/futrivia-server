@@ -17,6 +17,10 @@ const UserSchema = new Schema({
     type: Number,
     default: 0
   },
+  lastCompletedTopic: {
+    type: String,
+    default: 'starter'
+  },
   points: {
     type: Number,
     default: 0

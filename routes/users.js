@@ -11,7 +11,9 @@ router.get("/", async (ctx) => {
 
 // Get a user by username
 router.get("/stats/:username", async (ctx) => {
-  const { username } = ctx.params;
+  const {
+    username
+  } = ctx.params;
   const user = await usersCtlr.getUser(username);
   ctx.body = user;
 });
@@ -85,9 +87,14 @@ router.post("/update-user-stats", async (ctx) => {
 });
 
 // Get next trivia set for a given user
-router.get("/next-set/:username", async (ctx) => {
-  const { username } = ctx.params;
-  const nextTriviaSet = await usersCtlr.getNextTriviaSet(username);
+router.get("/next-set/:username/:topic", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const {
+    topic
+  } = ctx.params;
+  const nextTriviaSet = await usersCtlr.getNextTriviaSet(username, topic);
   ctx.body = nextTriviaSet;
 });
 

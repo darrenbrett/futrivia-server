@@ -57,12 +57,10 @@ exports.login = async (email, password) => {
   const hashedPassword = userToCheck.password;
   const match = await bcrypt.compare(password, hashedPassword);
   if (match) {
-    const token = jwt.sign(
-      {
+    const token = jwt.sign({
         username: userToCheck.username,
       },
-      verificationKey,
-      {
+      verificationKey, {
         expiresIn: 86400,
       }
     );
@@ -93,7 +91,7 @@ exports.savePredictions = async (userId, predictionObj) => {
 exports.runFeaturesCheck = (roundsCompleted) => {
   let feature;
   if (roundsCompleted === 3) {
-    feature = "Fast Mover";
+    feature = "Multiple Categories";
   } else if (roundsCompleted === 6) {
     feature = "Scorcher";
   } else if (roundsCompleted === 10) {
@@ -135,15 +133,19 @@ exports.getUser = async (username) => {
 };
 
 // Get next trivia set for user
-exports.getNextTriviaSet = async (username) => {
+exports.getNextTriviaSet = async (username, topic) => {
   const user = await User.findOne({
     username: username,
   });
   let nextTriviaSetNum = user.lastCompletedSet + 1;
   let nextTriviaSet;
   try {
+    if (topic !== user.lastCompletedTopic) {
+      nextTriviaSetNum = 1;
+    }
     nextTriviaSet = await queryHandler.findOne("triviaSets", {
       set: nextTriviaSetNum,
+      topic
     });
   } catch (error) {
     console.log("Error getting next trivia set for user...");

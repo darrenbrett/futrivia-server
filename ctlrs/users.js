@@ -129,7 +129,6 @@ exports.updateBonusStats = async (username, lastCompletedBonusId, result) => {
     user.points -= 5;
   }
   const updatedUser = await user.save();
-  console.log('updatedUser: ', updatedUser);
   return updatedUser;
 };
 

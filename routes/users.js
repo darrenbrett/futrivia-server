@@ -86,6 +86,23 @@ router.post("/update-user-stats", async (ctx) => {
   }
 });
 
+// Update last completed trivia set for a user
+router.post("/update-user-bonus", async (ctx) => {
+  const username = ctx.request.body.username;
+  const lastCompletedBonusId = ctx.request.body.lastCompletedBonusId;
+  const result = ctx.request.body.qResult;
+  try {
+    let updateResponse = await usersCtlr.updateBonusStats(username, lastCompletedBonusId, result);
+    ctx.body = updateResponse;
+  } catch (error) {
+    ctx.body = {
+      error: error,
+      message: "Error saving players stats update",
+    };
+  }
+});
+
+
 // Get next trivia set for a given user
 router.get("/next-set/:username/:topic", async (ctx) => {
   const {
@@ -96,6 +113,24 @@ router.get("/next-set/:username/:topic", async (ctx) => {
   } = ctx.params;
   const nextTriviaSet = await usersCtlr.getNextTriviaSet(username, topic);
   ctx.body = nextTriviaSet;
+});
+
+// Get next bonus question for a given user
+router.get("/next-bonus/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const nextBonusQuestion = await usersCtlr.getNextBonusQuestion(username);
+  ctx.body = nextBonusQuestion;
+});
+
+// Get ranked users
+router.get("/standings/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const rankedUsers = await usersCtlr.getStandingsPerLevel(username);
+  ctx.body = rankedUsers;
 });
 
 module.exports = router.routes();

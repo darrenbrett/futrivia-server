@@ -39,7 +39,6 @@ exports.create = async (email, password) => {
           predictionsScore: 0,
         });
         createdUser = await user.save();
-        console.log("createdUser: ", createdUser);
       }
     });
   }
@@ -92,8 +91,8 @@ exports.runFeaturesCheck = (roundsCompleted) => {
   let feature;
   if (roundsCompleted === 3) {
     feature = "Multiple Categories";
-  } else if (roundsCompleted === 6) {
-    feature = "Scorcher";
+  } else if (roundsCompleted === 5) {
+    feature = "Bonus Challenge";
   } else if (roundsCompleted === 10) {
     feature = "Earth Shaker";
   }
@@ -116,6 +115,21 @@ exports.updateStats = async (username, lastCompletedSet, pointsToAdd) => {
     }
   }
   const updatedUser = await user.save();
+  return updatedUser;
+};
+
+exports.updateBonusStats = async (username, lastCompletedBonusId, result) => {
+  const user = await User.findOne({
+    username: username,
+  });
+  user.lastCompletedBonusId = lastCompletedBonusId;
+  if (result === 'correct') {
+    user.points += 10;
+  } else if (result === 'incorrect') {
+    user.points -= 5;
+  }
+  const updatedUser = await user.save();
+  console.log('updatedUser: ', updatedUser);
   return updatedUser;
 };
 
@@ -152,4 +166,45 @@ exports.getNextTriviaSet = async (username, topic) => {
     console.log(error);
   }
   return nextTriviaSet;
+};
+
+// Get next bonus question for user
+exports.getNextBonusQuestion = async (username) => {
+  const user = await User.findOne({
+    username: username,
+  });
+  let nextBonusQuestionId = user.lastCompletedBonusId + 1;
+  let nextBonusQuestion;
+  try {
+    nextBonusQuestion = await queryHandler.findOne("bonusQuestions", {
+      qid: nextBonusQuestionId
+    });
+  } catch (error) {
+    console.log("Error getting next bonus question for user...");
+    console.log(error);
+  }
+  return nextBonusQuestion;
+};
+
+exports.getStandingsPerLevel = async (username) => {
+  const user = await User.findOne({
+    username: username,
+  });
+  // Get ranked users
+  const userLevel = user.level;
+  let rankedLevelUsers;
+  await User.find({
+      level: userLevel
+    })
+    .sort({
+      "points": -1,
+    })
+    .then((users) => {
+      rankedLevelUsers = users;
+    })
+    .catch((err) => {
+      console.log("Error getting ranked users...");
+      console.log(err);
+    });
+  return rankedLevelUsers;
 };

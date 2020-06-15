@@ -8,6 +8,9 @@ const UserSchema = new Schema({
   password: {
     type: String
   },
+  displayName: {
+    type: String
+  },
   tokens: [],
   roles: [],
   featuresUnlocked: [{
@@ -20,6 +23,10 @@ const UserSchema = new Schema({
   lastCompletedTopic: {
     type: String,
     default: 'starter'
+  },
+  lastCompletedBonusId: {
+    type: Number,
+    default: 0
   },
   points: {
     type: Number,

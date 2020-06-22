@@ -24,9 +24,9 @@ const UserSchema = new Schema({
     type: String,
     default: 'starter'
   },
-  lastCompletedBonusId: {
-    type: Number,
-    default: 0
+  bonusCompleted: {
+    type: Boolean,
+    default: false
   },
   points: {
     type: Number,
@@ -47,7 +47,18 @@ const UserSchema = new Schema({
   lastScore: {
     type: Number,
     default: 0
-  }
+  },
+  topics: [{
+    topic: {
+      type: String
+    },
+    setsCompleted: {
+      type: Number
+    },
+    setsRemaining: {
+      type: Number
+    }
+  }]
 }, {
   versionKey: false
 });

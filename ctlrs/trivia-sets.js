@@ -1,18 +1,6 @@
 const queryHandler = require("./../utils/queryHandler");
 const TriviaSet = require('./../models/TriviaSet');
 
-// // Get all trivia-sets
-// exports.getAll = () => {
-//   let triviaSets = [];
-//   try {
-//     return TriviaSet.find();
-//   } catch (error) {
-//     console.log('Error in trivia-sets ctlr get function');
-//     console.log(error);
-//   }
-//   return triviaSets;
-// };
-
 // Get all trivia sets
 exports.getAll = async () => {
   let triviaSets;
@@ -26,7 +14,6 @@ exports.getAll = async () => {
 
 // Get user by id
 exports.getUserById = async (username) => {
-  console.log('username: ', username);
   console.log(typeof userId);
   let user;
   const filter = {
@@ -55,4 +42,28 @@ exports.getNextTriviaSet = async (username) => {
     console.log(error);
   }
   return nextTriviaSet;
+};
+
+exports.getSetsForUniqueTopics = async () => {
+  let totalsArr = [];
+  let topicsArr = ['starter', 'laliga'];
+  for (let t of topicsArr) {
+    let topicDocs = await queryHandler.find('triviaSets', {
+      topic: t
+    });
+    let topicRes = {
+      topic: t,
+      sets: topicDocs.length
+    };
+    totalsArr.push(topicRes);
+  }
+  return totalsArr;
+};
+
+exports.getAvailableSetsForTopic = async (topic) => {
+  const topicSets = await queryHandler.find('triviaSets', topic);
+  return {
+    topic: topic,
+    sets: topicSets.length
+  };
 };

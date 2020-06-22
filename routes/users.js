@@ -50,33 +50,14 @@ router.post("/login", async (ctx) => {
   ctx.body = loginResponse;
 });
 
-// Save user predictions
-router.post("/predictions", async (ctx) => {
-  const userId = ctx.request.body.userId;
-  const predictionObj = {
-    year: ctx.request.body.year.toString(),
-    round: ctx.request.body.round.toString(),
-    completed: ctx.request.body.completed,
-    predictions: ctx.request.body.predictions,
-  };
-  try {
-    let loginResponse = await usersCtlr.savePredictions(userId, predictionObj);
-    ctx.body = loginResponse;
-  } catch (error) {
-    ctx.body = {
-      error: error,
-      message: "Error saving user predictions",
-    };
-  }
-});
-
 // Update last completed trivia set for a user
 router.post("/update-user-stats", async (ctx) => {
   const username = ctx.request.body.username;
   const lastCompletedSet = ctx.request.body.lastCompletedSet;
+  const lastCompletedTopic = ctx.request.body.lastCompletedTopic;
   const pointsToAdd = ctx.request.body.pointsToAdd;
   try {
-    let updateResponse = await usersCtlr.updateStats(username, lastCompletedSet, pointsToAdd);
+    let updateResponse = await usersCtlr.updateStats(username, lastCompletedSet, lastCompletedTopic, pointsToAdd);
     ctx.body = updateResponse;
   } catch (error) {
     ctx.body = {
@@ -89,10 +70,9 @@ router.post("/update-user-stats", async (ctx) => {
 // Update last completed trivia set for a user
 router.post("/update-user-bonus", async (ctx) => {
   const username = ctx.request.body.username;
-  const lastCompletedBonusId = ctx.request.body.lastCompletedBonusId;
   const result = ctx.request.body.qResult;
   try {
-    let updateResponse = await usersCtlr.updateBonusStats(username, lastCompletedBonusId, result);
+    let updateResponse = await usersCtlr.updateBonusStats(username, result);
     ctx.body = updateResponse;
   } catch (error) {
     ctx.body = {
@@ -124,6 +104,15 @@ router.get("/next-bonus/:username", async (ctx) => {
   ctx.body = nextBonusQuestion;
 });
 
+// Get number of available sets for a given topic
+router.get("/topic-sets-available/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const topicSetsAvailable = await usersCtlr.userTopicsSetsAvailable(username);
+  ctx.body = topicSetsAvailable;
+});
+
 // Get ranked users
 router.get("/standings/:username", async (ctx) => {
   const {
@@ -131,6 +120,15 @@ router.get("/standings/:username", async (ctx) => {
   } = ctx.params;
   const rankedUsers = await usersCtlr.getStandingsPerLevel(username);
   ctx.body = rankedUsers;
+});
+
+// Reset user
+router.get("/reset/:username", async (ctx) => {
+  const {
+    username
+  } = ctx.params;
+  const resetUser = await usersCtlr.resetUser(username);
+  ctx.body = resetUser;
 });
 
 module.exports = router.routes();

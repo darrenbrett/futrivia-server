@@ -9,4 +9,22 @@ router.get("/", async (ctx) => {
   ctx.body = users;
 });
 
+// Get sets for each topic
+router.get("/topics/all", async (ctx) => {
+  const {
+    topic
+  } = ctx.params;
+  const setsPerUniqueTopics = await triviaSetsCtlr.getSetsForUniqueTopics();
+  ctx.body = setsPerUniqueTopics;
+});
+
+// Get sets for a topic
+router.get("/topic-sets/:topic", async (ctx) => {
+  const {
+    topic
+  } = ctx.params;
+  const setsForTopic = await triviaSetsCtlr.getAvailableSetsPerTopic(topic);
+  ctx.body = setsForTopic;
+});
+
 module.exports = router.routes();

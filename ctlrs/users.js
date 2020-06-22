@@ -7,6 +7,8 @@ const queryHandler = require("./../utils/queryHandler");
 
 const verificationKey = require("./../configuration/authConfig");
 
+const TriviaSet = require("./../models/TriviaSet");
+
 // Get all users
 exports.getAll = () => {
   try {
@@ -78,13 +80,26 @@ exports.login = async (email, password) => {
   }
 };
 
-exports.savePredictions = async (userId, predictionObj) => {
+exports.resetUser = async (username) => {
   const user = await User.findOne({
-    _id: userId,
+    username: username,
   });
-  await user.predictions.push(predictionObj);
-  let updatedUser = await user.save();
-  return updatedUser;
+  for (let t of user.tokens) {
+    if (user.tokens.length > 1) {
+      user.tokens.pop();
+    }
+  }
+  user.roundsCompleted = 0;
+  user.points = 0;
+  user.roundsRemaining = 10;
+  user.bonusCompleted = 0;
+  user.lastCompletedSet = 0;
+  user.lastScore = 0;
+  user.lastCompletedTopic = 'starter';
+  user.featuresUnlocked = [];
+  user.topics = [];
+  let resetUser = await user.save();
+  return resetUser;
 };
 
 exports.runFeaturesCheck = (roundsCompleted) => {
@@ -99,11 +114,40 @@ exports.runFeaturesCheck = (roundsCompleted) => {
   return feature;
 };
 
-exports.updateStats = async (username, lastCompletedSet, pointsToAdd) => {
+exports.userTopicsUpdate = async (user, lastCompletedSet, lastCompletedTopic) => {
+  if (user.topics.length < 1) {
+    user.topics.push({
+      topic: lastCompletedTopic,
+      setsCompleted: 1,
+      setsRemaining: 2
+    });
+    return user.topics;
+  }
+  if (lastCompletedSet === 3) {
+    await user.topics.push({
+      topic: 'laliga',
+      setsCompleted: 0,
+      setsRemaining: 2
+    });
+    return user.topics;
+  }
+  if (lastCompletedSet < 3 || lastCompletedSet > 3) {
+    for (let t of user.topics) {
+      if (t.topic === lastCompletedTopic) {
+        t.setsCompleted = ++t.setsCompleted;
+        t.setsRemaining = --t.setsRemaining;
+      }
+    }
+    return user.topics;
+  }
+};
+
+exports.updateStats = async (username, lastCompletedSet, lastCompletedTopic, pointsToAdd) => {
   const user = await User.findOne({
     username: username,
   });
   user.lastCompletedSet = lastCompletedSet;
+  user.lastCompletedTopic = lastCompletedTopic;
   user.points = user.points + pointsToAdd;
   user.roundsCompleted = ++user.roundsCompleted;
   user.roundsRemaining = --user.roundsRemaining;
@@ -114,15 +158,16 @@ exports.updateStats = async (username, lastCompletedSet, pointsToAdd) => {
       await user.featuresUnlocked.push(featureToUnlock);
     }
   }
+  user.topics = await this.userTopicsUpdate(user, lastCompletedSet, lastCompletedTopic);
   const updatedUser = await user.save();
   return updatedUser;
 };
 
-exports.updateBonusStats = async (username, lastCompletedBonusId, result) => {
+exports.updateBonusStats = async (username, result) => {
   const user = await User.findOne({
     username: username,
   });
-  user.lastCompletedBonusId = lastCompletedBonusId;
+  user.bonusCompleted = true;
   if (result === 'correct') {
     user.points += 10;
   } else if (result === 'incorrect') {
@@ -151,10 +196,14 @@ exports.getNextTriviaSet = async (username, topic) => {
     username: username,
   });
   let nextTriviaSetNum = user.lastCompletedSet + 1;
+  console.log('nextTriviaSetNum: ', nextTriviaSetNum);
   let nextTriviaSet;
   try {
     if (topic !== user.lastCompletedTopic) {
+      console.log('topic: ', topic);
+      console.log('user.lastCompletedTopic: ', user.lastCompletedTopic);
       nextTriviaSetNum = 1;
+      console.log('nextTriviaSetNum 159: ', nextTriviaSetNum);
     }
     nextTriviaSet = await queryHandler.findOne("triviaSets", {
       set: nextTriviaSetNum,
@@ -172,11 +221,11 @@ exports.getNextBonusQuestion = async (username) => {
   const user = await User.findOne({
     username: username,
   });
-  let nextBonusQuestionId = user.lastCompletedBonusId + 1;
+  let userLevel = user.level;
   let nextBonusQuestion;
   try {
     nextBonusQuestion = await queryHandler.findOne("bonusQuestions", {
-      qid: nextBonusQuestionId
+      level: userLevel
     });
   } catch (error) {
     console.log("Error getting next bonus question for user...");

@@ -8,6 +8,7 @@ const queryHandler = require("./../utils/queryHandler");
 const verificationKey = require("./../configuration/authConfig");
 
 const TriviaSet = require("./../models/TriviaSet");
+const Topic = require("./../models/Topic");
 
 // Get all users
 exports.getAll = () => {
@@ -114,6 +115,19 @@ exports.runFeaturesCheck = (roundsCompleted) => {
   return feature;
 };
 
+exports.addRookieTopicsToUser = async (user) => {
+  const newTopics = await queryHandler.find('topics');
+  let userTopics = user.topics;
+  for (let topic of newTopics) {
+    topic.setsCompleted = 0;
+    topic.setsRemaining = 3;
+    if (topic.level === 1) {
+      await userTopics.push(topic);
+    }
+  }
+  return userTopics;
+};
+
 exports.userTopicsUpdate = async (user, lastCompletedSet, lastCompletedTopic) => {
   if (user.topics.length < 1) {
     user.topics.push({
@@ -124,11 +138,7 @@ exports.userTopicsUpdate = async (user, lastCompletedSet, lastCompletedTopic) =>
     return user.topics;
   }
   if (lastCompletedSet === 3) {
-    await user.topics.push({
-      topic: 'laliga',
-      setsCompleted: 0,
-      setsRemaining: 2
-    });
+    user.topics = await this.addRookieTopicsToUser(user, lastCompletedSet);
     return user.topics;
   }
   if (lastCompletedSet < 3 || lastCompletedSet > 3) {
